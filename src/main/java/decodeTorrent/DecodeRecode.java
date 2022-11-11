@@ -3,8 +3,10 @@ package decodeTorrent;
 import data.Torrent;
 
 import java.nio.charset.StandardCharsets;
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
 
 public class DecodeRecode extends DecodeStandard {
 
@@ -44,7 +46,9 @@ public class DecodeRecode extends DecodeStandard {
     private void checkByte(){
         if(checkInt()){
             readIntTo();
-        }switch(torrent[position]){
+        }
+
+        switch(torrent[position]){
             case 'd': createDictionary();
                 break;
             case 'l': readList();
@@ -70,7 +74,7 @@ public class DecodeRecode extends DecodeStandard {
         }
 
         position++; //skip e
-        decodeTorrentString.append(" { ").append(number.toString()).append(" } \n");
+        decodeTorrentString.append(" { ").append(number.toString()).append(" }\n");
 
     }
 
@@ -83,7 +87,7 @@ public class DecodeRecode extends DecodeStandard {
             checkByte();
         }
 
-        position++; // skip e;
+        position++;
         decodeTorrentString.append(" } \n");
     }
 
@@ -101,12 +105,12 @@ public class DecodeRecode extends DecodeStandard {
 
 
     private void closeListOrDictionary() {
-        decodeTorrentString.append(" } \n");
+        decodeTorrentString.append(" } ");
         position++;
     }
 
     private void createDictionary(){
-        decodeTorrentString.append("dictionary { \n");
+        decodeTorrentString.append("\n dictionary { \n");
         position++;
     }
 

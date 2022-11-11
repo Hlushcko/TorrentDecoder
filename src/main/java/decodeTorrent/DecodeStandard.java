@@ -26,7 +26,7 @@ public abstract class DecodeStandard {
                 case 54: //6
                 case 55: //7
                 case 56: //8
-                case 47: //9
+                case 57: //9
                     result.append(new String(new byte[]{torrent[position]}, StandardCharsets.UTF_8));
                     nextRead = Integer.parseInt(result.toString());
                     position++;
@@ -49,7 +49,7 @@ public abstract class DecodeStandard {
             case 54: //6
             case 55: //7
             case 56: //8
-            case 47: //9
+            case 57: //9
                 return true;
             default:
                 return false;

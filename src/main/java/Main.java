@@ -5,7 +5,7 @@ public class Main {
         Tdroid d = new Tdroid();
 
         try {
-            d.decodeTorrent(new File("C:\\Users\\Volodymyr\\Downloads\\Byousoku 5 Centimeter.torrent"));
+            d.decodeTorrent(new File("C:\\Users\\Volodymyr\\Downloads\\torrentReaderKiller.torrent"));
         } catch (Exception e) {
             e.printStackTrace();
         }
