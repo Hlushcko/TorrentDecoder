@@ -4,9 +4,9 @@ import java.nio.charset.StandardCharsets;
 
 public abstract class DecodeStandard {
 
-    protected static byte[] torrent;
-    protected static int position = 0;
-    protected static int nextRead = 0;
+    protected byte[] torrent;
+    protected int position = 0;
+    protected int nextRead = 0;
 
     public DecodeStandard(byte[] _torrent){
         torrent = _torrent;

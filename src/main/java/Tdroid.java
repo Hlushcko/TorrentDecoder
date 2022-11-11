@@ -1,6 +1,5 @@
 import data.Torrent;
 import decodeTorrent.Decode;
-import decodeTorrent.DecodeRecode;
 
 import java.io.File;
 
@@ -19,7 +18,7 @@ public class Tdroid extends ReadFiles{
 //     *
 //     */
     public Torrent decodeTorrent(File file) throws Exception{
-        return new DecodeRecode(getFile(file)).decode();
+        return new Decode(getFile(file)).decode();
     }
 //
 //
