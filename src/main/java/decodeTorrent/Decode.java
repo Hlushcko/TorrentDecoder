@@ -22,11 +22,11 @@ public class Decode{
 
 
     private Map<String, String> decodeTorrent;
-    private StringBuilder decodeTorrentString = new StringBuilder();
+    private final StringBuilder decodeTorrentString = new StringBuilder();
 
 
     private byte[] torrent;
-    private volatile int nextRead = 0;
+    private static int nextRead = 0;
     private static boolean closeList = false;
     private static boolean soloElement = true;
 
