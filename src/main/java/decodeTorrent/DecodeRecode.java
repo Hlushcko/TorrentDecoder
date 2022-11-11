@@ -91,7 +91,7 @@ public class DecodeRecode extends DecodeStandard {
         }
 
         //position++;
-        decodeTorrentString.append(" } ");
+        //decodeTorrentString.append(" } ");
     }
 
 
