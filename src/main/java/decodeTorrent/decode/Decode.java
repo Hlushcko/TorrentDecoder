@@ -1,6 +1,6 @@
-package decodeTorrent;
+package decodeTorrent.decode;
 
-import data.Torrent;
+import decodeTorrent.convert.data.Torrent;
 import java.nio.charset.StandardCharsets;
 
 
@@ -18,12 +18,10 @@ public class Decode extends DecodeStandard {
     }
 
 
-    public Torrent decode(){
+    public String decode(){
         constructorInformation();
-        Torrent data = new Torrent();
-        data.setAllTorrentStringElements(decodeTorrentString.toString());
 
-        return data;
+        return decodeTorrentString.toString();
     }
 
 
@@ -113,9 +111,9 @@ public class Decode extends DecodeStandard {
 
     private void closeListOrDictionary() {
         readCycle = 0;
-        if (torrent[position + 1] == 'e') {
+        if (torrent[position + 1] == 'e' || torrent[position + 1] == 'l') {
             decodeTorrentString.append(" } ");
-        }else{
+        } else {
             decodeTorrentString.append(" } \n");
         }
         position++;

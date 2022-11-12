@@ -1,7 +1,16 @@
-package decodeTorrent;
+package decodeTorrent.convert;
 
 public class Convert {
-//
+
+    private String torrent;
+
+
+    public Convert(String _torrent){
+        torrent = _torrent;
+    }
+
+
+
 //    public static String byteToString(byte[] bytes){
 //
 //    }

@@ -1,9 +1,8 @@
-package data;
+package decodeTorrent.convert.data;
 
 public class Torrent {
 
     private String allTorrentStringElements;
-
 
 
     public String getAllTorrentStringElements() {

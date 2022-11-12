@@ -1,4 +1,4 @@
-package decodeTorrent;
+package decodeTorrent.decode;
 
 import java.nio.charset.StandardCharsets;
 
