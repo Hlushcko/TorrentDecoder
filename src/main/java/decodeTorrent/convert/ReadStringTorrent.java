@@ -41,6 +41,15 @@ public class ReadStringTorrent {
                 readInfo();
                 break;
             }
+
+            switch(element){
+                case "announce":;
+                case "announce-list":;
+                case "creation date":;
+                case "comment":;
+                case "created by":;
+                case "encoding":;
+            }
         }
     }
 

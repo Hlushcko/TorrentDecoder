@@ -5,7 +5,8 @@ public class Main {
         Tdroid d = new Tdroid();
 
         try {
-            String a = d.decodeTorrent(new File("C:\\Users\\Volodymyr\\Downloads\\Amok Runner [FitGirl Repack].torrent")).getAllTorrentStringElements();
+            String a = d.decodeTorrent(new File("C:\\Users\\Oksana\\Downloads\\voleta-everarden-flm.torrent")).getAllTorrentStringElements();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

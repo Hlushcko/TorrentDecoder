@@ -1,6 +1,5 @@
 import com.sun.istack.internal.NotNull;
 import sun.misc.IOUtils;
-import sun.text.normalizer.UTF16;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,9 +14,9 @@ public abstract class ReadFiles {
         return Files.readAllBytes(Paths.get(file.getAbsolutePath()));
     }
 
-    protected static byte[] getFile(@NotNull InputStream stream) throws IOException {
-        return IOUtils.readAllBytes(stream);
-    }
+//    protected static byte[] getFile(@NotNull InputStream stream) throws IOException {
+//        return IOUtils.readAllBytes(stream);
+//    }
 
 
     protected static byte[] getFileTested(@NotNull InputStream stream) throws IOException {
