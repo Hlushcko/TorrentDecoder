@@ -79,6 +79,7 @@ public class Decode extends DecodeStandard {
 
         while(torrent[position] != 'e'){
             checkByte();
+            decodeTorrentString.append("$");
             readCycle = 0;
         }
 
