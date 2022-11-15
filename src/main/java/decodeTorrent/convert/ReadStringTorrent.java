@@ -44,6 +44,7 @@ public class ReadStringTorrent {
                 break;
             }
 
+            //bruh.....
             try {
                 if (element.substring(0, element.indexOf("**") - 1).equals("announce")) {
                     info.setAnnounce(readString(element));
