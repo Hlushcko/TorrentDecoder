@@ -5,7 +5,7 @@ public class Main {
         Tdroid d = new Tdroid();
 
         try {
-             String a = d.decodeTorrent(new File("C:\\Users\\Oksana\\Downloads\\[pseudo] One Piece Movie.torrent")).getAllTorrentStringElements();
+             String a = d.decodeTorrent(new File("C:\\Users\\Oksana\\Downloads\\kberpank-t-scho-bzhat-po-krayu-sezon-1.torrent")).getAllTorrentStringElements();
 
         } catch (Exception e) {
             e.printStackTrace();

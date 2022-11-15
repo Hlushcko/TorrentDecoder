@@ -98,6 +98,11 @@ public class Decode extends DecodeStandard {
 
         position += nextRead;
         String element = new String(elements, StandardCharsets.UTF_8);
+
+        if(nextRead > 500 ) {
+            element = element.replace("\n", ":split:");
+        }
+
         if(solo && readCycle == 2) {
             decodeTorrentString.append(" ** ").append(element).append("\n");
             readCycle = 0;

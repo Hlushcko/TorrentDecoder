@@ -2,9 +2,7 @@ package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ReadStringTorrent {
 
@@ -37,59 +35,60 @@ public class ReadStringTorrent {
 
 
     private void readElements(){
-        for(String element : torrentMass){
+        for(int i = 0; i < torrentMass.size() - 1; i++){
 
-            if (element.equals("info")){
-                readInfo();
+            if (torrentMass.get(i).equals("info")){
+                readInfo(i);
                 break;
             }
 
             //bruh.....
             try {
-                if (element.substring(0, element.indexOf("**") - 1).equals("announce")) {
-                    info.setAnnounce(readString(element));
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("announce")) {
+                    info.setAnnounce(readString(torrentMass.get(i)));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
             try{
-                if (element.substring(0, element.indexOf("{") - 1).equals("announce-list")) {
-                    String cutElement = element.substring(14); // 14 = announce-list
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("{") - 1).equals("announce-list")) {
+                    String cutElement = torrentMass.get(i).substring(14); // 14 = announce-list
                     info.setAnnounceLit(readList(cutElement));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
             try{
-                if (element.substring(0, element.indexOf("{") - 1).equals("creation date")) {
-                    info.setCreationDate(new Date(readInt(element) * 1000));
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("{") - 1).equals("creation date")) {
+                    info.setCreationDate(new Date(readInt(torrentMass.get(i)) * 1000));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
             try{
-                if (element.substring(0, element.indexOf("**") - 1).equals("comment")) {
-                    info.setComment(readString(element));
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("comment")) {
+                    info.setComment(readString(torrentMass.get(i)));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
             try{
-                if (element.substring(0, element.indexOf("**") - 1).equals("created by")) {
-                    info.setCreatedBy(readString(element));
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("created by")) {
+                    info.setCreatedBy(readString(torrentMass.get(i)));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
             try{
-                if (element.substring(0, element.indexOf("**") - 1).equals("encoding")) {
-                    info.setEncoding(readString(element));
+                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("encoding")) {
+                    info.setEncoding(readString(torrentMass.get(i)));
                     continue;
                 }
             }catch (Exception ex){ ex.printStackTrace(); }
 
         }
     }
+
 
     private String readString(String element){
         return element.substring(element.indexOf("**") + 2);
@@ -119,8 +118,13 @@ public class ReadStringTorrent {
         return Long.parseLong(cutElement);
     }
 
+    private Map<String, String> maps = new HashMap<>();
+    private void readInfo(int position){
+        StringBuilder pieces = new StringBuilder();
 
-    private void readInfo(){
+        for(int i = position; i < torrentMass.size() - 1; i++){
+
+        }
 
     }
 
