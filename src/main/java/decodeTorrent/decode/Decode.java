@@ -99,7 +99,7 @@ public class Decode extends DecodeStandard {
         position += nextRead;
         String element = new String(elements, StandardCharsets.UTF_8);
 
-        if(nextRead > 500 ) {
+        if(nextRead > 500 ) { // usually pieces > 500.
             element = element.replace("\n", ":split:");
         }
 

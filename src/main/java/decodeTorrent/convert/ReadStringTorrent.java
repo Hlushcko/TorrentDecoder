@@ -34,6 +34,10 @@ public class ReadStringTorrent {
     }
 
 
+
+    //переписати метод так, щоб він просто по кругу і з 1 try\catch викликав
+    //інші методи (тоб то розділити метод на кілька методів, бажано додати
+    //це все в інший клас).
     private void readElements(){
         for(int i = 0; i < torrentMass.size() - 1; i++){
 
@@ -126,6 +130,10 @@ public class ReadStringTorrent {
 
         }
 
+    }
+
+    private void readPieces(String element){
+        String result = element.replace(":split:", "\n");
     }
 
 
