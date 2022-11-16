@@ -1,16 +1,20 @@
 package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
+import decodeTorrent.convert.data.TorrentElements;
+import decodeTorrent.convert.read.ReadStart;
 
 import java.util.*;
 
 public class ReadStringTorrent {
 
+    private final Map<String, String> mapInfo = new HashMap<>();
     private final ArrayList<String> torrentMass = new ArrayList<>();
     private final Torrent info = new Torrent();
 
 
     public ReadStringTorrent(String _torrent){
+        info.setTorrentStingFormat(_torrent);
         cutString(_torrent);
     }
 
@@ -19,7 +23,7 @@ public class ReadStringTorrent {
     private void cutString(String torrent){
         String[] split = torrent.split("\n");
 
-        for(String element : split){ // delete all empty str.
+        for(String element : split){
             if(!element.isEmpty()){
                 torrentMass.add(element);
             }
@@ -46,49 +50,13 @@ public class ReadStringTorrent {
                 break;
             }
 
-            //bruh.....
-            try {
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("announce")) {
-                    info.setAnnounce(readString(torrentMass.get(i)));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
+            String announce = ReadStart.checkAnnounce(torrentMass.get(i));
+            List<String> announceList = ReadStart.checkAnnounceList(torrentMass.get(i));
+            String encoding = ReadStart.checkEncoding(torrentMass.get(i));
+            String comment = ReadStart.checkComment(torrentMass.get(i));
+            String createdBy = ReadStart.checkCreatedBy(torrentMass.get(i));
+            String encodings = ReadStart.checkEncoding(torrentMass.get(i));
 
-            try{
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("{") - 1).equals("announce-list")) {
-                    String cutElement = torrentMass.get(i).substring(14); // 14 = announce-list
-                    info.setAnnounceLit(readList(cutElement));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
-
-            try{
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("{") - 1).equals("creation date")) {
-                    info.setCreationDate(new Date(readInt(torrentMass.get(i)) * 1000));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
-
-            try{
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("comment")) {
-                    info.setComment(readString(torrentMass.get(i)));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
-
-            try{
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("created by")) {
-                    info.setCreatedBy(readString(torrentMass.get(i)));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
-
-            try{
-                if (torrentMass.get(i).substring(0, torrentMass.get(i).indexOf("**") - 1).equals("encoding")) {
-                    info.setEncoding(readString(torrentMass.get(i)));
-                    continue;
-                }
-            }catch (Exception ex){ ex.printStackTrace(); }
 
         }
     }
@@ -122,18 +90,53 @@ public class ReadStringTorrent {
         return Long.parseLong(cutElement);
     }
 
-    private Map<String, String> maps = new HashMap<>();
+
     private void readInfo(int position){
         StringBuilder pieces = new StringBuilder();
 
         for(int i = position; i < torrentMass.size() - 1; i++){
-
+            if(torrentMass.get(i).equals("files { ")){
+                i = readFileElements(i);
+            }
         }
 
     }
 
     private void readPieces(String element){
         String result = element.replace(":split:", "\n");
+    }
+
+    private int readFileElements(int index){
+        List<TorrentElements> elements = new ArrayList<>();
+
+        long length = 0;
+        String path = null;
+
+        byte out = 0;
+        for(int i = index; i < torrentMass.size() - 1; i++){
+            if(torrentMass.get(i).contains("length")){
+                length = readInt(torrentMass.get(i).replace("$", ""));
+            }else if(torrentMass.get(i).contains("path")){
+                String read = torrentMass.get(i);
+                path = read.substring(read.indexOf("{") + 2, read.indexOf("$ }"));
+            }
+
+            if(length != 0 && path != null){
+                elements.add(new TorrentElements(length, path));
+                length = 0;
+                path = null;
+                out = 0;
+            }else{
+                out++;
+            }
+
+            if(out >= 5){
+                info.setFilesElements(elements);
+                return i - out;
+            }
+        }
+
+        return 0;
     }
 
 

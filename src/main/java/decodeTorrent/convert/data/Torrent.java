@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Torrent {
 
+    private String torrentStingFormat;
     private String announce;
     private List<String> announceLit;
     private Date creationDate;
@@ -16,6 +17,14 @@ public class Torrent {
     private String infoHash;
     private String name;
 
+
+    public String getTorrentStingFormat() {
+        return torrentStingFormat;
+    }
+
+    public void setTorrentStingFormat(String torrentStingFormat) {
+        torrentStingFormat = torrentStingFormat;
+    }
 
     public List<String> getAnnounceLit() {
         return announceLit;
@@ -97,15 +106,5 @@ public class Torrent {
         this.encoding = encoding;
     }
 
-    private String allTorrentStringElements;
-
-
-    public String getAllTorrentStringElements() {
-        return allTorrentStringElements;
-    }
-
-    public void setAllTorrentStringElements(String allTorrentStringElements) {
-        this.allTorrentStringElements = allTorrentStringElements;
-    }
 
 }
