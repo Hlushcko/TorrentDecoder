@@ -71,6 +71,18 @@ public class ReadStandartElement extends Read{
     }
 
 
+    public static String getString(String element, String key){
+        try {
+            if (element.substring(0, element.indexOf("**") - 1).equals(key)) {
+                return readString(element);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+        return null;
+    }
+
     public static String checkEncoding(String element){
         try {
             if (element.substring(0, element.indexOf("**") - 1).equals("encoding")) {

@@ -72,6 +72,10 @@ public class ReadStringTorrent {
     }
 
 
+    //переписати класи так, щоб передавати в метод інформацію про пошуковий елемент
+    //if(torrentMass.get(i).contains("name **")){
+    //ReadElements.getString("name **"); -- і по цьому воно буде вирізати.
+    //}
     private void readInfo(int position){
         StringBuilder pieces = new StringBuilder();
 
@@ -81,17 +85,19 @@ public class ReadStringTorrent {
                 mapInfo.put("files", "");
                 i = ReadInfoAndFileElement.finishPosition;
             }else if(torrentMass.get(i).contains("name **")){
-
+                ReadStandartElement.getString(torrentMass.get(i), "name");
             }else if(torrentMass.get(i).contains("piece length")){
-
+                //ReadStandartElement.getString(torrentMass.get(i),"piece length");
+                //тут буде int
             }else if(torrentMass.get(i).contains("pieces **")){
-
+                ReadStandartElement.getString(torrentMass.get(i),"pieces");
             }else if(torrentMass.get(i).contains("private")){
-
+                //ReadStandartElement.getString(torrentMass.get(i),"piece length");
+                //тут буде Int
             }else if(torrentMass.get(i).contains("publisher **")){
-
+                ReadStandartElement.getString(torrentMass.get(i),"publisher");
             }else if(torrentMass.get(i).contains("publisher-url **")){
-
+                ReadStandartElement.getString(torrentMass.get(i),"publisher-url");
             }else{
 
             }
