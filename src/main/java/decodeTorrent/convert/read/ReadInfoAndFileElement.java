@@ -9,13 +9,14 @@ import static decodeTorrent.convert.read.Read.readInt;
 
 public class ReadInfoAndFileElement {
 
+    public static int finishPosition = 0;
 
     public static String readPieces(String element){
         return element.replace(":split:", "\n").substring(element.indexOf("**") + 2);
     }
 
 
-    public static int readFileElements(List<String> torrentMass, int index){
+    public static List<TorrentElements> readFileElements(List<String> torrentMass, int index){
         List<TorrentElements> elements = new ArrayList<>();
 
         long length = 0;
@@ -30,7 +31,7 @@ public class ReadInfoAndFileElement {
                 path = read.substring(read.indexOf("{") + 2, read.indexOf("$ }"));
             }
 
-            if(length != 0 && path != null){
+            if(length != 0 && path != null){ //bad code
                 elements.add(new TorrentElements(length, path));
                 length = 0;
                 path = null;
@@ -40,12 +41,12 @@ public class ReadInfoAndFileElement {
             }
 
             if(out >= 5){
-                info.setFilesElements(elements);
-                return i - out;
+                finishPosition = i - out;
+                return elements;
             }
         }
 
-        return 0;
+        return null;
     }
 
 }

@@ -2,13 +2,14 @@ package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
 import decodeTorrent.convert.data.TorrentElements;
+import decodeTorrent.convert.read.ReadInfoAndFileElement;
 import decodeTorrent.convert.read.ReadStandartElement;
 
 import java.util.*;
 
 public class ReadStringTorrent {
 
-    private final Map<String, String> mapInfo = new HashMap<>();
+    private final Map<String, String> mapInfo = new LinkedHashMap<>();
     private final ArrayList<String> torrentMass = new ArrayList<>();
     private final Torrent info = new Torrent();
 
@@ -55,8 +56,21 @@ public class ReadStringTorrent {
             String encoding = ReadStandartElement.checkEncoding(torrentMass.get(i));
             String comment = ReadStandartElement.checkComment(torrentMass.get(i));
             String createdBy = ReadStandartElement.checkCreatedBy(torrentMass.get(i));
-            String encodings = ReadStandartElement.checkEncoding(torrentMass.get(i));
+            Date date = ReadStandartElement.checkCreationDate(torrentMass.get(i));
 
+            if(announce != null){
+                info.setAnnounce(announce);
+            }else if(announceList != null){
+                info.setAnnounceLit(announceList);
+            }else if(encoding != null){
+                info.setEncoding(encoding);
+            }else if(comment != null){
+                info.setComment(comment);
+            }else if(createdBy != null){
+                info.setComment(createdBy);
+            }else if(date != null){
+                info.setCreationDate(date);
+            }
 
         }
     }
@@ -67,49 +81,13 @@ public class ReadStringTorrent {
 
         for(int i = position; i < torrentMass.size() - 1; i++){
             if(torrentMass.get(i).equals("files { ")){
-                i = readFileElements(i);
+                info.setFilesElements(ReadInfoAndFileElement.readFileElements(torrentMass, i));
+                mapInfo.put("files", "");
+                i = ReadInfoAndFileElement.finishPosition;
             }
         }
 
     }
-
-    private void readPieces(String element){
-        String result = element.replace(":split:", "\n");
-    }
-
-    private int readFileElements(int index){
-        List<TorrentElements> elements = new ArrayList<>();
-
-        long length = 0;
-        String path = null;
-
-        byte out = 0;
-        for(int i = index; i < torrentMass.size() - 1; i++){
-            if(torrentMass.get(i).contains("length")){
-                length = readInt(torrentMass.get(i).replace("$", ""));
-            }else if(torrentMass.get(i).contains("path")){
-                String read = torrentMass.get(i);
-                path = read.substring(read.indexOf("{") + 2, read.indexOf("$ }"));
-            }
-
-            if(length != 0 && path != null){
-                elements.add(new TorrentElements(length, path));
-                length = 0;
-                path = null;
-                out = 0;
-            }else{
-                out++;
-            }
-
-            if(out >= 5){
-                info.setFilesElements(elements);
-                return i - out;
-            }
-        }
-
-        return 0;
-    }
-
 
 
 }
