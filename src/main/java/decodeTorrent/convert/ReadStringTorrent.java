@@ -2,7 +2,7 @@ package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
 import decodeTorrent.convert.data.TorrentElements;
-import decodeTorrent.convert.read.ReadStart;
+import decodeTorrent.convert.read.ReadStandartElement;
 
 import java.util.*;
 
@@ -50,44 +50,15 @@ public class ReadStringTorrent {
                 break;
             }
 
-            String announce = ReadStart.checkAnnounce(torrentMass.get(i));
-            List<String> announceList = ReadStart.checkAnnounceList(torrentMass.get(i));
-            String encoding = ReadStart.checkEncoding(torrentMass.get(i));
-            String comment = ReadStart.checkComment(torrentMass.get(i));
-            String createdBy = ReadStart.checkCreatedBy(torrentMass.get(i));
-            String encodings = ReadStart.checkEncoding(torrentMass.get(i));
+            String announce = ReadStandartElement.checkAnnounce(torrentMass.get(i));
+            List<String> announceList = ReadStandartElement.checkAnnounceList(torrentMass.get(i));
+            String encoding = ReadStandartElement.checkEncoding(torrentMass.get(i));
+            String comment = ReadStandartElement.checkComment(torrentMass.get(i));
+            String createdBy = ReadStandartElement.checkCreatedBy(torrentMass.get(i));
+            String encodings = ReadStandartElement.checkEncoding(torrentMass.get(i));
 
 
         }
-    }
-
-
-    private String readString(String element){
-        return element.substring(element.indexOf("**") + 2);
-    }
-
-
-    private List<String> readList(String element){
-        String[] list = element
-                .replace("{", "")
-                .replace("}", "")
-                .replace(" ", "")
-                .split("\\$");
-        List<String> listStr = new ArrayList<>();
-
-        for(String obj : list){
-            if(!obj.isEmpty()) {
-                listStr.add(obj);
-            }
-        }
-
-        return listStr;
-    }
-
-
-    private long readInt(String element){
-        String cutElement = element.substring(element.indexOf("{") + 1).replace("}", "").replace(" ", "");
-        return Long.parseLong(cutElement);
     }
 
 

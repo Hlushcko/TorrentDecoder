@@ -3,7 +3,7 @@ package decodeTorrent.convert.read;
 import java.util.Date;
 import java.util.List;
 
-public class ReadStart extends Read{
+public class ReadStandartElement extends Read{
 
 
     public static String checkAnnounce(String element){
