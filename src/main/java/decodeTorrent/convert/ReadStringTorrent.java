@@ -1,9 +1,7 @@
 package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
-import decodeTorrent.convert.data.TorrentElements;
-import decodeTorrent.convert.read.ReadInfoAndFileElement;
-import decodeTorrent.convert.read.ReadStandartElement;
+import decodeTorrent.convert.read.ReadElement;
 
 import java.util.*;
 
@@ -47,12 +45,12 @@ public class ReadStringTorrent {
                 break;
             }
 
-            String announce = ReadStandartElement.checkAnnounce(torrentMass.get(i));
-            List<String> announceList = ReadStandartElement.checkAnnounceList(torrentMass.get(i));
-            String encoding = ReadStandartElement.checkEncoding(torrentMass.get(i));
-            String comment = ReadStandartElement.checkComment(torrentMass.get(i));
-            String createdBy = ReadStandartElement.checkCreatedBy(torrentMass.get(i));
-            Date date = ReadStandartElement.checkCreationDate(torrentMass.get(i));
+            String announce = ReadElement.getString(torrentMass.get(i), "announce");
+            List<String> announceList = ReadElement.checkAnnounceList(torrentMass.get(i));
+            String encoding = ReadElement.getString(torrentMass.get(i), "encoding");
+            String comment = ReadElement.getString(torrentMass.get(i), "comment");
+            String createdBy = ReadElement.getString(torrentMass.get(i), "created by");
+            Date date = ReadElement.checkCreationDate(torrentMass.get(i));
 
             if(announce != null){
                 info.setAnnounce(announce);
@@ -72,32 +70,28 @@ public class ReadStringTorrent {
     }
 
 
-    //переписати класи так, щоб передавати в метод інформацію про пошуковий елемент
-    //if(torrentMass.get(i).contains("name **")){
-    //ReadElements.getString("name **"); -- і по цьому воно буде вирізати.
-    //}
     private void readInfo(int position){
         StringBuilder pieces = new StringBuilder();
 
         for(int i = position; i < torrentMass.size() - 1; i++){
             if(torrentMass.get(i).equals("files { ")){
-                info.setFilesElements(ReadInfoAndFileElement.readFileElements(torrentMass, i));
+                info.setFilesElements(ReadElement.readFileElements(torrentMass, i));
                 mapInfo.put("files", "");
-                i = ReadInfoAndFileElement.finishPosition;
+                i = ReadElement.finishPosition;
             }else if(torrentMass.get(i).contains("name **")){
-                ReadStandartElement.getString(torrentMass.get(i), "name");
+                ReadElement.getString(torrentMass.get(i), "name");
             }else if(torrentMass.get(i).contains("piece length")){
                 //ReadStandartElement.getString(torrentMass.get(i),"piece length");
                 //тут буде int
             }else if(torrentMass.get(i).contains("pieces **")){
-                ReadStandartElement.getString(torrentMass.get(i),"pieces");
+                ReadElement.getString(torrentMass.get(i),"pieces");
             }else if(torrentMass.get(i).contains("private")){
                 //ReadStandartElement.getString(torrentMass.get(i),"piece length");
                 //тут буде Int
             }else if(torrentMass.get(i).contains("publisher **")){
-                ReadStandartElement.getString(torrentMass.get(i),"publisher");
+                ReadElement.getString(torrentMass.get(i),"publisher");
             }else if(torrentMass.get(i).contains("publisher-url **")){
-                ReadStandartElement.getString(torrentMass.get(i),"publisher-url");
+                ReadElement.getString(torrentMass.get(i),"publisher-url");
             }else{
 
             }
