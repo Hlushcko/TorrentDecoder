@@ -10,6 +10,7 @@ public class ReadElement extends Read{
 
     public static int finishPosition = 0;
 
+
     public static List<String> checkAnnounceList(String element){
         try {
             if (element.substring(0, element.indexOf("{") - 1).equals("announce-list")) {

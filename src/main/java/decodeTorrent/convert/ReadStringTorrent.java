@@ -70,6 +70,7 @@ public class ReadStringTorrent {
     }
 
 
+    //todo "срочно переписати метод так, щоб в ньому використовувались 2 for, не знаю поки як, але думаю це реально"
     private void readInfo(int position){
         StringBuilder pieces = new StringBuilder();
 
@@ -79,19 +80,19 @@ public class ReadStringTorrent {
                 mapInfo.put("files", "");
                 i = ReadElement.finishPosition;
             }else if(torrentMass.get(i).contains("name **")){
-                ReadElement.getString(torrentMass.get(i), "name");
+                info.setName(ReadElement.getString(torrentMass.get(i), "name"));
             }else if(torrentMass.get(i).contains("piece length")){
                 //ReadStandartElement.getString(torrentMass.get(i),"piece length");
                 //тут буде int
             }else if(torrentMass.get(i).contains("pieces **")){
-                ReadElement.getString(torrentMass.get(i),"pieces");
+                info.setPieces(ReadElement.readPieces(torrentMass.get(i)));
             }else if(torrentMass.get(i).contains("private")){
                 //ReadStandartElement.getString(torrentMass.get(i),"piece length");
                 //тут буде Int
             }else if(torrentMass.get(i).contains("publisher **")){
-                ReadElement.getString(torrentMass.get(i),"publisher");
+                info.setPublisher(ReadElement.getString(torrentMass.get(i),"publisher"));
             }else if(torrentMass.get(i).contains("publisher-url **")){
-                ReadElement.getString(torrentMass.get(i),"publisher-url");
+                info.setPublisherUrl(ReadElement.getString(torrentMass.get(i),"publisher-url"));
             }else{
 
             }

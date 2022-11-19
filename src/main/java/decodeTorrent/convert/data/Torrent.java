@@ -16,14 +16,50 @@ public class Torrent {
     private Long size;
     private String infoHash;
     private String name;
+    private String pieces;
+    private byte privates;
+    private String publisher;
+    private String publisherUrl;
 
+
+    public String getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(String pieces) {
+        this.pieces = pieces;
+    }
+
+    public byte getPrivates() {
+        return privates;
+    }
+
+    public void setPrivates(byte privates) {
+        this.privates = privates;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublisherUrl() {
+        return publisherUrl;
+    }
+
+    public void setPublisherUrl(String publisherUrl) {
+        this.publisherUrl = publisherUrl;
+    }
 
     public String getTorrentStingFormat() {
         return torrentStingFormat;
     }
 
-    public void setTorrentStingFormat(String torrentStingFormat) {
-        torrentStingFormat = torrentStingFormat;
+    public void setTorrentStingFormat(String _torrentStingFormat) {
+        torrentStingFormat = _torrentStingFormat;
     }
 
     public List<String> getAnnounceLit() {
