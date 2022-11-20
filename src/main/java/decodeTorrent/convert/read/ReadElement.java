@@ -3,7 +3,6 @@ package decodeTorrent.convert.read;
 import decodeTorrent.convert.data.TorrentElements;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ReadElement extends Read{
@@ -11,10 +10,10 @@ public class ReadElement extends Read{
     public static int finishPosition = 0;
 
 
-    public static List<String> checkAnnounceList(String element){
+    public static List<String> getList(String element, String key){
         try {
-            if (element.substring(0, element.indexOf("{") - 1).equals("announce-list")) {
-                return readList(element.substring(14)); // 14 = announce-list
+            if (element.substring(0, element.indexOf("{") - 1).equals(key)) {
+                return readList(element.substring(key.length()));
             }
         }catch (Exception ex){
             ex.printStackTrace();
@@ -24,16 +23,16 @@ public class ReadElement extends Read{
     }
 
 
-    public static Date checkCreationDate(String element){
+    public static long getNumber(String element, String key){
         try {
-            if (element.substring(0, element.indexOf("{") - 1).equals("creation date")) {
-                return new Date(readInt(element) * 1000);
+            if (element.substring(0, element.indexOf("{") - 1).equals(key)) {
+                return Long.parseLong(element);
             }
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
-        return null;
+        return 0;
     }
 
 
@@ -49,10 +48,11 @@ public class ReadElement extends Read{
         return null;
     }
 
+
+
     public static String readPieces(String element){
         return element.replace(":split:", "\n").substring(element.indexOf("**") + 2);
     }
-
 
     public static List<TorrentElements> readFileElements(List<String> torrentMass, int index){
         List<TorrentElements> elements = new ArrayList<>();

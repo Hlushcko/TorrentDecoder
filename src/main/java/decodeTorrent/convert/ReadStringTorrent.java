@@ -46,11 +46,11 @@ public class ReadStringTorrent {
             }
 
             String announce = ReadElement.getString(torrentMass.get(i), "announce");
-            List<String> announceList = ReadElement.checkAnnounceList(torrentMass.get(i));
+            List<String> announceList = ReadElement.getList(torrentMass.get(i), "announce list");
             String encoding = ReadElement.getString(torrentMass.get(i), "encoding");
             String comment = ReadElement.getString(torrentMass.get(i), "comment");
             String createdBy = ReadElement.getString(torrentMass.get(i), "created by");
-            Date date = ReadElement.checkCreationDate(torrentMass.get(i));
+            long date = ReadElement.getNumber(torrentMass.get(i), "creation date");
 
             if(announce != null){
                 info.setAnnounce(announce);
@@ -62,8 +62,8 @@ public class ReadStringTorrent {
                 info.setComment(comment);
             }else if(createdBy != null){
                 info.setCreatedBy(createdBy);
-            }else if(date != null){
-                info.setCreationDate(date);
+            }else if(date != 0){
+                info.setCreationDate(new Date(date * 1000L));
             }
 
         }
@@ -72,27 +72,31 @@ public class ReadStringTorrent {
 
     //todo "срочно переписати метод так, щоб в ньому використовувались 2 for, не знаю поки як, але думаю це реально"
     private void readInfo(int position){
-        StringBuilder pieces = new StringBuilder();
 
-        for(int i = position; i < torrentMass.size() - 1; i++){
-            if(torrentMass.get(i).equals("files { ")){
+        for(int i = position; i < torrentMass.size(); i++){
+            if(torrentMass.get(i).contains("files { ")){
                 info.setFilesElements(ReadElement.readFileElements(torrentMass, i));
                 mapInfo.put("files", "");
                 i = ReadElement.finishPosition;
+
             }else if(torrentMass.get(i).contains("name **")){
                 info.setName(ReadElement.getString(torrentMass.get(i), "name"));
+
             }else if(torrentMass.get(i).contains("piece length")){
-                //ReadStandartElement.getString(torrentMass.get(i),"piece length");
-                //тут буде int
+                info.setSize(ReadElement.getNumber(torrentMass.get(i), "piece length"));
+
             }else if(torrentMass.get(i).contains("pieces **")){
                 info.setPieces(ReadElement.readPieces(torrentMass.get(i)));
+
             }else if(torrentMass.get(i).contains("private")){
-                //ReadStandartElement.getString(torrentMass.get(i),"piece length");
-                //тут буде Int
+                info.setPrivates((byte) ReadElement.getNumber(torrentMass.get(i), "private"));
+
             }else if(torrentMass.get(i).contains("publisher **")){
                 info.setPublisher(ReadElement.getString(torrentMass.get(i),"publisher"));
+
             }else if(torrentMass.get(i).contains("publisher-url **")){
                 info.setPublisherUrl(ReadElement.getString(torrentMass.get(i),"publisher-url"));
+
             }else{
 
             }
