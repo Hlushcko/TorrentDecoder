@@ -70,7 +70,6 @@ public class ReadStringTorrent {
     }
 
 
-    //todo "срочно переписати метод так, щоб в ньому використовувались 2 for, не знаю поки як, але думаю це реально"
     private void readInfo(int position){
 
         for(int i = position; i < torrentMass.size(); i++){
