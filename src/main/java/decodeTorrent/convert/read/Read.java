@@ -29,7 +29,11 @@ abstract class Read {
 
 
     protected static long readInt(String element){
-        String cutElement = element.substring(element.indexOf("{") + 1).replace("}", "").replace(" ", "");
+        String cutElement = element.substring(element.indexOf("{") + 1)
+                .replace("}", "")
+                .replace(" ", "")
+                .replace("{", "")
+                .replace("$","");
         return Long.parseLong(cutElement);
     }
 }
