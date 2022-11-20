@@ -26,7 +26,7 @@ public class ReadElement extends Read{
     public static long getNumber(String element, String key){
         try {
             if (element.substring(0, element.indexOf("{") - 1).equals(key)) {
-                return Long.parseLong(element);
+                return readInt(element);
             }
         }catch (Exception ex){
             ex.printStackTrace();

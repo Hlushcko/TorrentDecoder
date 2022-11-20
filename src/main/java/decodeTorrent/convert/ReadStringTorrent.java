@@ -46,7 +46,7 @@ public class ReadStringTorrent {
             }
 
             String announce = ReadElement.getString(torrentMass.get(i), "announce");
-            List<String> announceList = ReadElement.getList(torrentMass.get(i), "announce list");
+            List<String> announceList = ReadElement.getList(torrentMass.get(i), "announce-list");
             String encoding = ReadElement.getString(torrentMass.get(i), "encoding");
             String comment = ReadElement.getString(torrentMass.get(i), "comment");
             String createdBy = ReadElement.getString(torrentMass.get(i), "created by");
