@@ -123,11 +123,11 @@ public class ReadStringTorrent {
 
     private void checkIntOrStr(String element){
         if(element.contains(" ** ")){ // string
-            String key = element.substring(0, element.indexOf(" ** "));
+            String key = element.substring(0, element.indexOf(" ** ")).replace("$", "");
             String info = ReadElement.getString(element, key);
             mapInfo.put(key, info);
         }else if(element.contains(" { ")){ // int
-            String key = element.substring(0, element.indexOf(" { "));
+            String key = element.substring(0, element.indexOf(" { ")).replace("$", "");
             long info = ReadElement.getNumber(element, key);
             mapInfo.put(key, String.valueOf(info));
         }else if(element.contains(" { { ")){ // list
