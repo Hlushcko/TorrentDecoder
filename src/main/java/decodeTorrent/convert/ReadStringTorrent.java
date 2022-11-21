@@ -80,26 +80,39 @@ public class ReadStringTorrent {
                 i = ReadElement.finishPosition;
 
             }else if(torrentMass.get(i).contains("name **")){
-                info.setName(ReadElement.getString(torrentMass.get(i), "name"));
+                String name = ReadElement.getString(torrentMass.get(i), "name");
+                info.setName(name);
+                mapInfo.put("name", name);
 
             }else if(torrentMass.get(i).contains("piece length")){
-                info.setSize(ReadElement.getNumber(torrentMass.get(i), "piece length"));
+                long size = ReadElement.getNumber(torrentMass.get(i), "piece length");
+                info.setPieceLength(size);
+                mapInfo.put("piece length", String.valueOf(size));
 
             }else if(torrentMass.get(i).contains("pieces **")){
-                info.setPieces(ReadElement.readPieces(torrentMass.get(i)));
+                String pieces = ReadElement.readPieces(torrentMass.get(i));
+                info.setPieces(pieces);
+                mapInfo.put("pieces", pieces);
 
             }else if(torrentMass.get(i).contains("private")){
-                info.setPrivates((byte) ReadElement.getNumber(torrentMass.get(i), "private"));
+                byte privates = (byte) ReadElement.getNumber(torrentMass.get(i), "private");
+                info.setPrivates(privates);
+                mapInfo.put("private", String.valueOf(privates));
 
             }else if(torrentMass.get(i).contains("publisher **")){
-                info.setPublisher(ReadElement.getString(torrentMass.get(i),"publisher"));
+                String publisher = ReadElement.getString(torrentMass.get(i),"publisher");
+                info.setPublisher(publisher);
+                mapInfo.put("publisher", publisher);
 
             }else if(torrentMass.get(i).contains("publisher-url **")){
-                info.setPublisherUrl(ReadElement.getString(torrentMass.get(i),"publisher-url"));
+                String publisherUrl = ReadElement.getString(torrentMass.get(i),"publisher-url");
+                info.setPublisherUrl(publisherUrl);
+                mapInfo.put("publisher-url", publisherUrl);
 
-            }else if(torrentMass.get(i+1).contains("dictionary {")){ // read list
-                System.out.println("test " + i);
-            }else if(!torrentMass.get(i).contains("dictionary {")){ // read int or str
+            }else if(torrentMass.get(i+1).contains("dictionary {")){ // dictionary
+                mapInfo.put(torrentMass.get(i).substring(0, torrentMass.get(i).indexOf(" {")), "");
+
+            }else if(!torrentMass.get(i).contains("dictionary {")){ // read int or str or list.
                 checkIntOrStr(torrentMass.get(i));
             }
         }
@@ -109,15 +122,27 @@ public class ReadStringTorrent {
     }
 
     private void checkIntOrStr(String element){
-        if(element.contains(" ** ")){
+        if(element.contains(" ** ")){ // string
             String key = element.substring(0, element.indexOf(" ** "));
             String info = ReadElement.getString(element, key);
             mapInfo.put(key, info);
-        }else if(element.contains(" { ")){
+        }else if(element.contains(" { ")){ // int
             String key = element.substring(0, element.indexOf(" { "));
             long info = ReadElement.getNumber(element, key);
             mapInfo.put(key, String.valueOf(info));
+        }else if(element.contains(" { { ")){ // list
+            String key = element.substring(0, element.indexOf(" { { "));
+            List<String> listString = ReadElement.getList(element, key);
+            StringBuilder strInfo = new StringBuilder();
+
+            assert listString != null;
+            for(String obj : listString){
+                strInfo.append(obj).append(":split:");
+            }
+
+            mapInfo.put(key, strInfo.toString());
         }
+
     }
 
 

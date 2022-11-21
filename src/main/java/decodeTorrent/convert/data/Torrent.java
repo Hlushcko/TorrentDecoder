@@ -13,7 +13,8 @@ public class Torrent {
     private String createdBy;
     private String encoding;
     private List<TorrentElements> filesElements;
-    private Long size;
+    private long length;
+    private long pieceLength;
     private String infoHash;
     private String name;
     private String pieces;
@@ -21,6 +22,18 @@ public class Torrent {
     private String publisher;
     private String publisherUrl;
 
+
+    public long getLength() {
+        return length;
+    }
+
+    public void setLength(long length) {
+        this.length = length;
+    }
+
+    public void setPieceLength(long pieceLength) {
+        this.pieceLength = pieceLength;
+    }
 
     public String getPieces() {
         return pieces;
@@ -70,12 +83,8 @@ public class Torrent {
         this.announceLit = announceLit;
     }
 
-    public Long getSize() {
-        return size;
-    }
-
-    public void setSize(Long size) {
-        this.size = size;
+    public Long getPieceLength() {
+        return pieceLength;
     }
 
     public String getInfoHash() {
