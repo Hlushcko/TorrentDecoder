@@ -6,7 +6,7 @@ import java.util.List;
 abstract class Read {
 
     protected static String readString(String element){
-        return element.substring(element.indexOf("**") + 2);
+        return element.substring(element.indexOf("**") + 3);
     }
 
 

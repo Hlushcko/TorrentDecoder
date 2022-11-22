@@ -1,8 +1,12 @@
 package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
+import decodeTorrent.convert.data.TorrentElements;
 import decodeTorrent.convert.read.ReadElement;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class ReadStringTorrent {
@@ -76,7 +80,13 @@ public class ReadStringTorrent {
         for(int i = position + 1; i < torrentMass.size(); i++){//position + 1 - skip "info"
             if(torrentMass.get(i).equals("files { ")){
                 info.setFilesElements(ReadElement.readFileElements(torrentMass, i));
-                mapInfo.put("files", "");
+
+                StringBuilder builder = new StringBuilder();
+                for(TorrentElements element : info.getFilesElements()){
+                    builder.append(element.getLength()).append(element.getPath());
+                }
+
+                mapInfo.put("files", builder.toString());
                 i = ReadElement.finishPosition;
 
             }else if(torrentMass.get(i).contains("name **")){
@@ -121,15 +131,18 @@ public class ReadStringTorrent {
 
     }
 
+
     private void checkIntOrStr(String element){
         if(element.contains(" ** ")){ // string
             String key = element.substring(0, element.indexOf(" ** ")).replace("$", "");
             String info = ReadElement.getString(element, key);
             mapInfo.put(key, info);
+
         }else if(element.contains(" { ")){ // int
             String key = element.substring(0, element.indexOf(" { ")).replace("$", "");
             long info = ReadElement.getNumber(element, key);
             mapInfo.put(key, String.valueOf(info));
+
         }else if(element.contains(" { { ")){ // list
             String key = element.substring(0, element.indexOf(" { { "));
             List<String> listString = ReadElement.getList(element, key);
@@ -137,7 +150,7 @@ public class ReadStringTorrent {
 
             assert listString != null;
             for(String obj : listString){
-                strInfo.append(obj).append(":split:");
+                strInfo.append(obj).append("");
             }
 
             mapInfo.put(key, strInfo.toString());
@@ -147,8 +160,69 @@ public class ReadStringTorrent {
 
 
     private void getHashInfo(){
+        StringBuilder builder = new StringBuilder("info");
+
+        for(String key : mapInfo.keySet()){
+            builder.append(key);
+        }
+
+        for(String element : mapInfo.values()){
+            if(element != null && !element.equals(" ") && !element.equals("")) {
+                builder.append(element);
+            }
+        }
+
+        StringBuilder builder1 = new StringBuilder("info");
+        for(Map.Entry<String, String> a : mapInfo.entrySet()){
+
+            builder.append(a.getKey());
+            if(a.getValue() != null && !a.getValue().equals(" ") && !a.getValue().equals("")){
+                builder1.append(a.getValue());
+            }
+        }
+
+        String result1 = SHAsum(builder1.toString().getBytes(StandardCharsets.UTF_8));
+        String result2 = SHAsum(builder.toString().getBytes(StandardCharsets.UTF_8));
 
     }
 
+    //8f77e90fef6135c62ca847666f2220a5e394f3fa
+    public static String SHAsum(byte[] input)
+    {
+        MessageDigest md;
+        try
+        {
+            md = MessageDigest.getInstance("SHA-1");
+            return byteArray2Hex(md.digest(input));
+        } catch (NoSuchAlgorithmException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String byteArray2Hex(final byte[] bytes)
+    {
+        Formatter formatter = new Formatter();
+        for (byte b : bytes)
+        {
+            formatter.format("%02x", b);
+        }
+        return formatter.toString();
+    }
+
+    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+    public static String bytesToHex(byte[] bytes)
+    {
+        char[] hexChars = new char[bytes.length * 2];
+
+        for (int j = 0; j < bytes.length; j++)
+        {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = hexArray[v >>> 4]; // Get left part of byte
+            hexChars[j * 2 + 1] = hexArray[v & 0x0F]; // Get right part of byte
+        }
+        return new String(hexChars);
+    }
 
 }

@@ -51,7 +51,7 @@ public class ReadElement extends Read{
 
 
     public static String readPieces(String element){
-        return element.replace(":split:", "\n").substring(element.indexOf("**") + 2);
+        return element.replace(":split:", "\n").substring(element.indexOf("**") + 3);
     }
 
     public static List<TorrentElements> readFileElements(List<String> torrentMass, int index){
