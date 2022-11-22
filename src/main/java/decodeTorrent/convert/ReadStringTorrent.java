@@ -81,53 +81,50 @@ public class ReadStringTorrent {
             if(torrentMass.get(i).equals("files { ")){
                 info.setFilesElements(ReadElement.readFileElements(torrentMass, i));
 
-                StringBuilder builder = new StringBuilder();
+                StringBuilder builder = new StringBuilder("d");
                 for(TorrentElements element : info.getFilesElements()){
                     builder.append(element.getLength()).append(element.getPath());
                 }
 
-                mapInfo.put("files", builder.toString());
+                mapInfo.put("files", 5 + builder.toString());
                 i = ReadElement.finishPosition;
 
             }else if(torrentMass.get(i).contains("name **")){
                 String name = ReadElement.getString(torrentMass.get(i), "name");
                 info.setName(name);
-                mapInfo.put("name", name);
+                mapInfo.put("name", name.getBytes(StandardCharsets.UTF_8).length + name + ":");
 
             }else if(torrentMass.get(i).contains("piece length")){
                 long size = ReadElement.getNumber(torrentMass.get(i), "piece length");
                 info.setPieceLength(size);
-                mapInfo.put("piece length", String.valueOf(size));
+                mapInfo.put("piece length", "i" + String.valueOf(size) + "e");
 
             }else if(torrentMass.get(i).contains("pieces **")){
                 String pieces = ReadElement.readPieces(torrentMass.get(i));
                 info.setPieces(pieces);
-                mapInfo.put("pieces", pieces);
+                mapInfo.put("pieces", pieces.getBytes(StandardCharsets.UTF_8).length + pieces + ":");
+
+            }else if(torrentMass.get(i).contains("publisher **")){
+                info.setPublisher(ReadElement.getString(torrentMass.get(i),"publisher"));
+
+            }else if(torrentMass.get(i).contains("publisher-url **")){
+                info.setPublisherUrl(ReadElement.getString(torrentMass.get(i),"publisher-url"));
 
             }else if(torrentMass.get(i).contains("private")){
                 byte privates = (byte) ReadElement.getNumber(torrentMass.get(i), "private");
                 info.setPrivates(privates);
-                mapInfo.put("private", String.valueOf(privates));
+                mapInfo.put("private", "i" + String.valueOf(privates) + "e");
 
-            }else if(torrentMass.get(i).contains("publisher **")){
-                String publisher = ReadElement.getString(torrentMass.get(i),"publisher");
-                info.setPublisher(publisher);
-                mapInfo.put("publisher", publisher);
-
-            }else if(torrentMass.get(i).contains("publisher-url **")){
-                String publisherUrl = ReadElement.getString(torrentMass.get(i),"publisher-url");
-                info.setPublisherUrl(publisherUrl);
-                mapInfo.put("publisher-url", publisherUrl);
-
-            }else if(torrentMass.get(i+1).contains("dictionary {")){ // dictionary
-                mapInfo.put(torrentMass.get(i).substring(0, torrentMass.get(i).indexOf(" {")), "");
-
+            }else if(i >= i+1){ // 300 iq
+                if(torrentMass.get(i+1).contains("dictionary {")) { // dictionary
+                    String value = torrentMass.get(i).substring(0, torrentMass.get(i).indexOf(" {"));
+                    mapInfo.put(value.getBytes(StandardCharsets.UTF_8).length + value, "");
+                }
             }else if(!torrentMass.get(i).contains("dictionary {")){ // read int or str or list.
                 checkIntOrStr(torrentMass.get(i));
             }
         }
 
-        getHashInfo();
 
     }
 
@@ -141,7 +138,7 @@ public class ReadStringTorrent {
         }else if(element.contains(" { ")){ // int
             String key = element.substring(0, element.indexOf(" { ")).replace("$", "");
             long info = ReadElement.getNumber(element, key);
-            mapInfo.put(key, String.valueOf(info));
+            mapInfo.put(key, "i" + String.valueOf(info) + "e");
 
         }else if(element.contains(" { { ")){ // list
             String key = element.substring(0, element.indexOf(" { { "));
@@ -153,76 +150,9 @@ public class ReadStringTorrent {
                 strInfo.append(obj).append("");
             }
 
-            mapInfo.put(key, strInfo.toString());
+            mapInfo.put(key, "l" + strInfo.toString() + "e");
         }
 
-    }
-
-
-    private void getHashInfo(){
-        StringBuilder builder = new StringBuilder("info");
-
-        for(String key : mapInfo.keySet()){
-            builder.append(key);
-        }
-
-        for(String element : mapInfo.values()){
-            if(element != null && !element.equals(" ") && !element.equals("")) {
-                builder.append(element);
-            }
-        }
-
-        StringBuilder builder1 = new StringBuilder("info");
-        for(Map.Entry<String, String> a : mapInfo.entrySet()){
-
-            builder.append(a.getKey());
-            if(a.getValue() != null && !a.getValue().equals(" ") && !a.getValue().equals("")){
-                builder1.append(a.getValue());
-            }
-        }
-
-        String result1 = SHAsum(builder1.toString().getBytes(StandardCharsets.UTF_8));
-        String result2 = SHAsum(builder.toString().getBytes(StandardCharsets.UTF_8));
-
-    }
-
-    //8f77e90fef6135c62ca847666f2220a5e394f3fa
-    public static String SHAsum(byte[] input)
-    {
-        MessageDigest md;
-        try
-        {
-            md = MessageDigest.getInstance("SHA-1");
-            return byteArray2Hex(md.digest(input));
-        } catch (NoSuchAlgorithmException e)
-        {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private static String byteArray2Hex(final byte[] bytes)
-    {
-        Formatter formatter = new Formatter();
-        for (byte b : bytes)
-        {
-            formatter.format("%02x", b);
-        }
-        return formatter.toString();
-    }
-
-    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    public static String bytesToHex(byte[] bytes)
-    {
-        char[] hexChars = new char[bytes.length * 2];
-
-        for (int j = 0; j < bytes.length; j++)
-        {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = hexArray[v >>> 4]; // Get left part of byte
-            hexChars[j * 2 + 1] = hexArray[v & 0x0F]; // Get right part of byte
-        }
-        return new String(hexChars);
     }
 
 }
