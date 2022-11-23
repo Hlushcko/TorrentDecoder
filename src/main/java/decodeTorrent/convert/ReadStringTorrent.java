@@ -173,7 +173,11 @@ public class ReadStringTorrent {
                     }
 
                     if(openDictionary == 0){
-                        finishKey = torrentMass.get(j+1);
+                        if(torrentMass.size() >= j+1){
+                            finishKey = null;
+                        }else{
+                            finishKey = torrentMass.get(j+1);
+                        }
                         break;
                     }
 
@@ -185,12 +189,20 @@ public class ReadStringTorrent {
         }
 
         String cutToInfo = new String(info.getInfoString().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
-        cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
-        byte[] byteCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
 
+        if(finishKey == null){
+            cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4);
+        }else{
+            cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
+        }
+
+        byte[] cutCutCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
+        byte[] byteCut = cutToInfo.getBytes();
+        String results = Arrays.toString(byteCut).replace(",", "");
 
         return new String(byteCut, StandardCharsets.UTF_8);
     }
+
 
     private String getKey(String element){
 
