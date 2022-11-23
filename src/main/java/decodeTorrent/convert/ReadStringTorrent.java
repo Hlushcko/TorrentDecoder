@@ -13,12 +13,12 @@ public class ReadStringTorrent {
 
     private final Map<String, String> mapInfo = new LinkedHashMap<>();
     private final ArrayList<String> torrentMass = new ArrayList<>();
-    private final Torrent info = new Torrent();
+    private final Torrent info;
 
 
-    public ReadStringTorrent(String _torrent){
-        info.setTorrentStingFormat(_torrent);
-        cutString(_torrent);
+    public ReadStringTorrent(Torrent _torrent){
+        info = _torrent;
+        cutString(_torrent.getTorrentStingFormat());
     }
 
 
@@ -115,16 +115,17 @@ public class ReadStringTorrent {
                 info.setPrivates(privates);
                 mapInfo.put("private", "i" + String.valueOf(privates) + "e");
 
-            }else if(i >= i+1){ // 300 iq
-                if(torrentMass.get(i+1).contains("dictionary {")) { // dictionary
+            }else if(i+1 <= torrentMass.size()-1){ // 300 iq
+                if(torrentMass.get(i+1).contains("dictionary :[:")) { // dictionary
                     String value = torrentMass.get(i).substring(0, torrentMass.get(i).indexOf(" {"));
                     mapInfo.put(value.getBytes(StandardCharsets.UTF_8).length + value, "");
                 }
-            }else if(!torrentMass.get(i).contains("dictionary {")){ // read int or str or list.
+            }else if(!torrentMass.get(i).contains("dictionary :[:")){ // read int or str or list.
                 checkIntOrStr(torrentMass.get(i));
             }
         }
 
+        String hash = readInfo();
 
     }
 
@@ -151,6 +152,54 @@ public class ReadStringTorrent {
             }
 
             mapInfo.put(key, "l" + strInfo.toString() + "e");
+        }
+
+    }
+
+
+    private String readInfo(){
+        int openDictionary = 0;
+        String finishKey = null;
+
+        for(int i = 0; i < torrentMass.size(); i++){
+
+            if(torrentMass.get(i).equals("info")){
+                for(int j = i+1; j < torrentMass.size(); j++){
+
+                    if(torrentMass.get(j).contains(":[:")){
+                        openDictionary++;
+                    }else if(torrentMass.get(j).contains(":]:")){
+                        openDictionary--;
+                    }
+
+                    if(openDictionary == 0){
+                        finishKey = torrentMass.get(j+1);
+                        break;
+                    }
+
+                }
+            }
+
+            System.out.println(finishKey);
+
+        }
+
+        String cutToInfo = new String(info.getInfoString().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
+        byte[] byteCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
+
+
+        return new String(byteCut, StandardCharsets.UTF_8);
+    }
+
+    private String getKey(String element){
+
+        if(element.contains(" { ")){
+            return element.substring(0, element.indexOf(" { "));
+        }else if(element.contains(" ** ")){
+            return element.substring(0, element.indexOf(" ** "));
+        }else{
+            return element;
         }
 
     }

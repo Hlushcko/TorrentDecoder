@@ -1,6 +1,9 @@
 package decodeTorrent.decode;
 
 import decodeTorrent.convert.data.Torrent;
+import decodeTorrent.convert.data.TorrentElements;
+import jdk.internal.util.xml.impl.ReaderUTF8;
+
 import java.nio.charset.StandardCharsets;
 
 
@@ -9,6 +12,10 @@ public class Decode extends DecodeStandard {
     private static final int MAX_LENGTH = 100;
 
     private final StringBuilder decodeTorrentString = new StringBuilder();
+
+    private int[] openDictionary = new int[10];
+    private int correctDictionary = -1;
+
     private boolean solo = true;
     private int readCycle = 0;
 
@@ -18,10 +25,14 @@ public class Decode extends DecodeStandard {
     }
 
 
-    public String decode(){
+    public Torrent decode(){
         constructorInformation();
 
-        return decodeTorrentString.toString();
+        Torrent torrentElement = new Torrent();
+        torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
+        torrentElement.setInfoString(new String(torrent, StandardCharsets.UTF_8));
+
+        return torrentElement;
     }
 
 
@@ -58,6 +69,7 @@ public class Decode extends DecodeStandard {
 
     private void readInt() {
        StringBuilder number = new StringBuilder();
+        openDictionary[correctDictionary]++;
         position++; //skip i
         readCycle = 0;
 
@@ -73,6 +85,7 @@ public class Decode extends DecodeStandard {
 
     private void readList(){
         decodeTorrentString.append(" { ");
+        openDictionary[correctDictionary]++;
         position++; //skip l
         solo = false;
         readCycle = 0;
@@ -119,15 +132,25 @@ public class Decode extends DecodeStandard {
         readCycle = 0;
         if (torrent[position + 1] == 'e' || torrent[position + 1] == 'l') {
             decodeTorrentString.append(" } ");
+            openDictionary[correctDictionary]--;
         } else {
+            openDictionary[correctDictionary]--;
             decodeTorrentString.append(" } \n");
         }
+
+        if(openDictionary[correctDictionary] == 0){
+            decodeTorrentString.append(" :]: \n");
+            correctDictionary--;
+        }
+
         position++;
     }
 
     private void createDictionary(){
         readCycle = 0;
-        decodeTorrentString.append("\n dictionary { \n");
+        correctDictionary++;
+        openDictionary[correctDictionary]++;
+        decodeTorrentString.append("\n dictionary :[: \n");
         position++;
     }
 

@@ -21,7 +21,16 @@ public class Torrent {
     private byte privates;
     private String publisher;
     private String publisherUrl;
+    private String infoString;
 
+
+    public String getInfoString() {
+        return infoString;
+    }
+
+    public void setInfoString(String infoString) {
+        this.infoString = infoString;
+    }
 
     public long getLength() {
         return length;
