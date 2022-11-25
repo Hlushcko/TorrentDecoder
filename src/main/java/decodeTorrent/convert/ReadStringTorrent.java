@@ -188,7 +188,8 @@ public class ReadStringTorrent {
 
         }
 
-        String cutToInfo = new String(info.getInfoString().getBytes(StandardCharsets.UTF_8), StandardCharsets.UTF_8);
+        byte[] infoByte = info.getInfoByte();
+        String cutToInfo = new String(infoByte, StandardCharsets.US_ASCII);
 
         if(finishKey == null){
             cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4);
@@ -197,11 +198,15 @@ public class ReadStringTorrent {
         }
 
         byte[] cutCutCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
-        byte[] byteCut = cutToInfo.getBytes();
-        String results = Arrays.toString(byteCut).replace(",", "");
+        byte[] ansciCut = cutToInfo.getBytes(StandardCharsets.US_ASCII);
+        String result = Arrays.toString(ansciCut).replace(",", "");
+        String results = Arrays.toString(cutCutCut).replace(",", "");
 
-        return new String(byteCut, StandardCharsets.UTF_8);
+        return new String(cutCutCut, StandardCharsets.UTF_8);
     }
+
+
+
 
 
     private String getKey(String element){

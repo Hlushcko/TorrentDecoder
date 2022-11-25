@@ -12,6 +12,7 @@ public class Decode extends DecodeStandard {
     private static final int MAX_LENGTH = 100;
 
     private final StringBuilder decodeTorrentString = new StringBuilder();
+    private final Torrent torrentElement = new Torrent();
 
     private int[] openDictionary = new int[10];
     private int correctDictionary = -1;
@@ -28,9 +29,8 @@ public class Decode extends DecodeStandard {
     public Torrent decode(){
         constructorInformation();
 
-        Torrent torrentElement = new Torrent();
         torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
-        torrentElement.setInfoString(new String(torrent, StandardCharsets.UTF_8));
+        torrentElement.setInfoByte(torrent);
 
         return torrentElement;
     }
@@ -74,7 +74,7 @@ public class Decode extends DecodeStandard {
         readCycle = 0;
 
         while (torrent[position] != 'e') {
-            number.append(new String(new byte[]{torrent[position]}, StandardCharsets.UTF_8));
+            number.append(new String(new byte[]{torrent[position]}, StandardCharsets.US_ASCII));
             position++;
         }
 
@@ -110,10 +110,11 @@ public class Decode extends DecodeStandard {
         }
 
         position += nextRead;
-        String element = new String(elements, StandardCharsets.UTF_8);
+        String element = new String(elements, StandardCharsets.US_ASCII);
 
         if(nextRead > 500 ) { // usually pieces > 500.
             element = element.replace("\n", ":split:");
+            torrentElement.setInfoByte(elements);
         }
 
         if(solo && readCycle == 2) {
