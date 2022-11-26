@@ -21,15 +21,25 @@ public class Torrent {
     private byte privates;
     private String publisher;
     private String publisherUrl;
-    private byte[] infoByte;
+
+    private byte[] piecesByte;
+    private byte[] torrentByte;
 
 
-    public byte[] getInfoByte() {
-        return infoByte;
+    public byte[] getTorrentByte() {
+        return torrentByte;
     }
 
-    public void setInfoByte(byte[] infoString) {
-        this.infoByte = infoString;
+    public void setTorrentByte(byte[] torrentByte) {
+        this.torrentByte = torrentByte;
+    }
+
+    public byte[] getPiecesByte() {
+        return piecesByte;
+    }
+
+    public void setPiecesByte(byte[] infoString) {
+        this.piecesByte = infoString;
     }
 
     public long getLength() {

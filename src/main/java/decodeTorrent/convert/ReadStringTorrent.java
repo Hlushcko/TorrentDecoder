@@ -5,8 +5,6 @@ import decodeTorrent.convert.data.TorrentElements;
 import decodeTorrent.convert.read.ReadElement;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class ReadStringTorrent {
@@ -188,19 +186,40 @@ public class ReadStringTorrent {
 
         }
 
-        byte[] infoByte = info.getInfoByte();
-        String cutToInfo = new String(infoByte, StandardCharsets.US_ASCII);
+        byte[] infoByte = info.getPiecesByte();
+        String cutToInfo = new String(info.getTorrentByte(), StandardCharsets.US_ASCII);
 
         if(finishKey == null){
             cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4);
+            String test = cutToInfo.substring(cutToInfo.indexOf("pieces"));
+            test = test.substring(0, test.indexOf(":")+1);
+            cutToInfo = cutToInfo.substring(0, cutToInfo.indexOf(test) + test.length());
         }else{
             cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
+            cutToInfo = cutToInfo.substring(0, (cutToInfo.indexOf("pieces") + 6)) + cutToInfo.substring(cutToInfo.indexOf(finishKey) - 2);
         }
+
+        byte[] finish = new String("6:source29:http://tapochek.net/index.phpee").getBytes(StandardCharsets.US_ASCII);
+        byte[] result = cutToInfo.getBytes(StandardCharsets.US_ASCII);
+        byte[] sizere = new byte[result.length + infoByte.length + finish.length - 1];
+
+        for(int i = 0; i < result.length; i++){
+            sizere[i] = result[i];
+        }
+
+        for(int i = 0; i < infoByte.length; i++){
+            sizere[i + result.length] = infoByte[i];
+        }
+
+        for(int i = 0; i < finish.length - 1; i++){
+            sizere[i + result.length + infoByte.length] = finish[i];
+        }
+
+        String lol = new String(sizere, StandardCharsets.US_ASCII);
+        String ae = Arrays.toString(sizere).replace(",", "");
 
         byte[] cutCutCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
         byte[] ansciCut = cutToInfo.getBytes(StandardCharsets.US_ASCII);
-        String result = Arrays.toString(ansciCut).replace(",", "");
-        String results = Arrays.toString(cutCutCut).replace(",", "");
 
         return new String(cutCutCut, StandardCharsets.UTF_8);
     }

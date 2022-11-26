@@ -1,8 +1,6 @@
 package decodeTorrent.decode;
 
 import decodeTorrent.convert.data.Torrent;
-import decodeTorrent.convert.data.TorrentElements;
-import jdk.internal.util.xml.impl.ReaderUTF8;
 
 import java.nio.charset.StandardCharsets;
 
@@ -30,7 +28,8 @@ public class Decode extends DecodeStandard {
         constructorInformation();
 
         torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
-        torrentElement.setInfoByte(torrent);
+        torrentElement.setTorrentByte(torrent);
+
 
         return torrentElement;
     }
@@ -114,7 +113,7 @@ public class Decode extends DecodeStandard {
 
         if(nextRead > 500 ) { // usually pieces > 500.
             element = element.replace("\n", ":split:");
-            torrentElement.setInfoByte(elements);
+            torrentElement.setPiecesByte(elements);
         }
 
         if(solo && readCycle == 2) {
