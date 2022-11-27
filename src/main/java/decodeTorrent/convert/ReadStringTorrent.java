@@ -241,7 +241,7 @@ public class ReadStringTorrent {
 
         int length = lengthPieces(build.toString());
         int lengthLength = String.valueOf(length).length(); //LEGENDARY CODE!!!!!!!!!!!!!!!!! THIS CODE > ALL
-        byte[] deletePieces = new byte[torrentByte.length];
+        byte[] deletePieces = new byte[torrentByte.length - length];
 
 
         int numMinus = 0;
