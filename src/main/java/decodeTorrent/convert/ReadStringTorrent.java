@@ -239,6 +239,22 @@ public class ReadStringTorrent {
             }
         }
 
+        int length = lengthPieces(build.toString());
+        int lengthLength = String.valueOf(length).length(); //LEGENDARY CODE!!!!!!!!!!!!!!!!! THIS CODE > ALL
+        byte[] deletePieces = new byte[torrentByte.length];
+
+
+        int numMinus = 0;
+        for(int i = 0; i < torrentByte.length; i++){
+            if(i <= pos + lengthLength || i >= pos + length + lengthLength + 1) {
+                deletePieces[i-numMinus] = torrentByte[i];
+            }else{
+                numMinus++;
+            }
+        }
+
+        String test = new String(deletePieces, StandardCharsets.US_ASCII);
+
 
 
     }
