@@ -18,14 +18,4 @@ public class Main {
         }
     }
 
-
-    public static byte[] stringToAsciiBytes(String s)
-    {
-        byte[] ascii = new byte[s.length()];
-        for(int charIdx = 0; charIdx < s.length(); charIdx++)
-        {
-            ascii[charIdx] = (byte) s.charAt(charIdx);
-        }
-        return ascii;
-    }
 }
