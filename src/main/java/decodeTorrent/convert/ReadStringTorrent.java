@@ -206,8 +206,9 @@ public class ReadStringTorrent {
         String lol = check.substring(check.indexOf(":") + 1).replace(" ", "");
         byte[] finish = lol.getBytes(StandardCharsets.US_ASCII);
 
-        byte[] hash = new byte[info.getTorrentByte().length];
         byte[] pieces = info.getPiecesByte();
+        byte[] hash = new byte[test.length + pieces.length - 1];
+
         for(int i = 0; i < hash.length; i++){
             hash[i] = test[i];
 
@@ -220,8 +221,9 @@ public class ReadStringTorrent {
 
         }
 
+        int lol23 = test.length + pieces.length - finish.length - 1;
         for(int i = 0; i < test.length; i++){
-
+            hash[lol23 + i] = finish[i];
         }
 
         String tes = new String(hash, StandardCharsets.US_ASCII);
