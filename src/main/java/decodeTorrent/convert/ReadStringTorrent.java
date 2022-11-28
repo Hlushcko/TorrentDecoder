@@ -183,24 +183,49 @@ public class ReadStringTorrent {
                 }
             }
 
-            System.out.println(finishKey);
-
         }
 
-        byte[] infoByte = info.getPiecesByte();
-        String cutToInfo = new String(info.getTorrentByte(), StandardCharsets.US_ASCII);
+
+        String cutToInfo = new String(cutPieces(info.getTorrentByte()), StandardCharsets.US_ASCII);
 
         if(finishKey == null){
             cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4);
-            String test = cutToInfo.substring(cutToInfo.indexOf("pieces"));
-            test = test.substring(0, test.indexOf(":")+1);
-            cutToInfo = cutToInfo.substring(0, cutToInfo.indexOf(test) + test.length());
         }else{
             cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
-            cutToInfo = cutToInfo.substring(0, (cutToInfo.indexOf("pieces") + 6)) + cutToInfo.substring(cutToInfo.indexOf(finishKey) - 2);
         }
 
-        cutPieces(info.getTorrentByte());
+        byte[] test = cutToInfo.getBytes(StandardCharsets.US_ASCII);
+        int position = getPositionKey("pieces", test);
+
+        byte[] cutEnd = new byte[test.length - position - 1];
+        for(int i = position + 1; i < test.length; i++){
+            cutEnd[i - position - 1] = test[i];
+        }
+
+        String check = new String(cutEnd, StandardCharsets.US_ASCII);
+        String lol = check.substring(check.indexOf(":") + 1).replace(" ", "");
+        byte[] finish = lol.getBytes(StandardCharsets.US_ASCII);
+
+        byte[] hash = new byte[info.getTorrentByte().length];
+        byte[] pieces = info.getPiecesByte();
+        for(int i = 0; i < hash.length; i++){
+            hash[i] = test[i];
+
+            if(i > position && test[i] == ':'){
+                for(int j = 0; j <  pieces.length; j++){
+                    hash[j + i + 1] = pieces[j];
+                }
+                break;
+            }
+
+        }
+
+        for(int i = 0; i < test.length; i++){
+
+        }
+
+        String tes = new String(hash, StandardCharsets.US_ASCII);
+
 
 // НІ В ЯКОМУ РАЗІ НЕ ВИДАЛЯТИ!!!!!
 //        byte[] finish = new String("6:source29:http://tapochek.net/index.phpee").getBytes(StandardCharsets.US_ASCII);
@@ -226,7 +251,7 @@ public class ReadStringTorrent {
     }
 
 
-    private void cutPieces(byte[] torrentByte){
+    private byte[] cutPieces(byte[] torrentByte){
         StringBuilder build = new StringBuilder();
         int pos = getPositionKey("pieces", torrentByte);
 
@@ -253,10 +278,7 @@ public class ReadStringTorrent {
             }
         }
 
-        String test = new String(deletePieces, StandardCharsets.US_ASCII);
-
-
-
+        return deletePieces;
     }
 
     private int lengthPieces(String number){
