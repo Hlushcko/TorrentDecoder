@@ -2,6 +2,7 @@ package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
 import decodeTorrent.convert.data.TorrentElements;
+import decodeTorrent.convert.read.HashReader;
 import decodeTorrent.convert.read.ReadElement;
 
 import java.nio.charset.StandardCharsets;
@@ -37,7 +38,8 @@ public class ReadStringTorrent {
 
     public Torrent stringToTorrent(){
         readElements();
-        return new Torrent();
+        info.setInfoHash(HashReader.readHashInfo(torrentMass, info.getTorrentByte(), info.getPiecesByte()));
+        return info;
     }
 
 
@@ -74,7 +76,6 @@ public class ReadStringTorrent {
     }
 
 
-    // todo "розділити іфи на 3 методи (checkInt, checkString and checkList) в яких по фору буде перевірятись ключ з enum".
     private void readInfo(int position){
 
         for(int i = position + 1; i < torrentMass.size(); i++){//position + 1 - skip "info"
@@ -115,7 +116,7 @@ public class ReadStringTorrent {
                 info.setPrivates(privates);
                 mapInfo.put("private", "i" + String.valueOf(privates) + "e");
 
-            }else if(i+1 <= torrentMass.size()-1){ // 300 iq
+            }else if(i+1 <= torrentMass.size()-1){
                 if(torrentMass.get(i+1).contains("dictionary :[:")) { // dictionary
                     String value = torrentMass.get(i).substring(0, torrentMass.get(i).indexOf(" {"));
                     mapInfo.put(value.getBytes(StandardCharsets.UTF_8).length + value, "");
@@ -125,7 +126,6 @@ public class ReadStringTorrent {
             }
         }
 
-        String hash = readInfo();
 
     }
 
@@ -155,194 +155,5 @@ public class ReadStringTorrent {
         }
 
     }
-
-
-    private String readInfo(){
-        int openDictionary = 0;
-        String finishKey = null;
-
-        for(int i = 0; i < torrentMass.size(); i++){
-
-            if(torrentMass.get(i).equals("info")){
-                for(int j = i+1; j < torrentMass.size(); j++){
-
-                    if(torrentMass.get(j).contains(":[:")){
-                        openDictionary++;
-                    }else if(torrentMass.get(j).contains(":]:")){
-                        openDictionary--;
-                    }
-
-                    if(openDictionary == 0){
-                        if(torrentMass.size() >= j+1){
-                            finishKey = null;
-                        }else{
-                            finishKey = torrentMass.get(j+1);
-                        }
-                        break;
-                    }
-
-                }
-            }
-
-        }
-
-
-        String cutToInfo = new String(cutPieces(info.getTorrentByte()), StandardCharsets.US_ASCII);
-
-        if(finishKey == null){
-            cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4);
-        }else{
-            cutToInfo = cutToInfo.substring(cutToInfo.indexOf("infod") + 4, cutToInfo.indexOf(getKey(finishKey)) - 2);
-        }
-
-        byte[] test = cutToInfo.getBytes(StandardCharsets.US_ASCII);
-        int position = getPositionKey("pieces", test);
-
-        byte[] cutEnd = new byte[test.length - position - 1];
-        for(int i = position + 1; i < test.length; i++){
-            cutEnd[i - position - 1] = test[i];
-        }
-
-        String check = new String(cutEnd, StandardCharsets.US_ASCII);
-        String lol = check.substring(check.indexOf(":") + 1).replace(" ", "");
-        byte[] finish = lol.getBytes(StandardCharsets.US_ASCII);
-
-        byte[] pieces = info.getPiecesByte();
-        byte[] hash = new byte[test.length + pieces.length - 1];
-
-        for(int i = 0; i < hash.length; i++){
-            hash[i] = test[i];
-
-            if(i > position && test[i] == ':'){
-                for(int j = 0; j <  pieces.length; j++){
-                    hash[j + i + 1] = pieces[j];
-                }
-                break;
-            }
-
-        }
-
-        int lol23 = test.length + pieces.length - finish.length - 1;
-        for(int i = 0; i < finish.length - 1; i++){
-            hash[lol23 + i + 1] = finish[i];
-        }
-
-        String tes = new String(hash, StandardCharsets.US_ASCII);
-
-
-// НІ В ЯКОМУ РАЗІ НЕ ВИДАЛЯТИ!!!!!
-//        byte[] finish = new String("6:source29:http://tapochek.net/index.phpee").getBytes(StandardCharsets.US_ASCII);
-//        byte[] result = cutToInfo.getBytes(StandardCharsets.US_ASCII);
-//        byte[] sizere = new byte[result.length + infoByte.length + finish.length - 1];
-//
-//        for(int i = 0; i < result.length; i++){
-//            sizere[i] = result[i];
-//        }
-//
-//        for(int i = 0; i < infoByte.length; i++){
-//            sizere[i + result.length] = infoByte[i];
-//        }
-//
-//        for(int i = 0; i < finish.length - 1; i++){
-//            sizere[i + result.length + infoByte.length] = finish[i];
-//        }
-
-
-        String myResu = getHashInfo(hash);
-        byte[] cutCutCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
-
-        return new String(cutCutCut, StandardCharsets.UTF_8);
-    }
-
-
-    private byte[] cutPieces(byte[] torrentByte){
-        StringBuilder build = new StringBuilder();
-        int pos = getPositionKey("pieces", torrentByte);
-
-
-        for(int i = 0; i < torrentByte.length - pos; i++){
-            if(!(torrentByte[i+pos] == ':')){
-                build.append(new String(new byte[]{torrentByte[i+pos]}, StandardCharsets.US_ASCII));
-            }else{
-                break;
-            }
-        }
-
-        int length = lengthPieces(build.toString());
-        int lengthLength = String.valueOf(length).length(); //LEGENDARY CODE!!!!!!!!!!!!!!!!! THIS CODE > ALL
-        byte[] deletePieces = new byte[torrentByte.length - length];
-
-
-        int numMinus = 0;
-        for(int i = 0; i < torrentByte.length; i++){
-            if(i <= pos + lengthLength || i >= pos + length + lengthLength + 1) {
-                deletePieces[i-numMinus] = torrentByte[i];
-            }else{
-                numMinus++;
-            }
-        }
-
-        return deletePieces;
-    }
-
-    private int lengthPieces(String number){
-        return Integer.parseInt(number);
-    }
-
-    private int getPositionKey(String key, byte[] element){
-        byte[] keyByte = key.getBytes(StandardCharsets.US_ASCII);
-
-        //112 105 101 99 101 115
-        int trues = 0;
-
-        for(int i = 0; i < element.length; i++){
-
-            for(int j = 0; j < keyByte.length; j++){
-                if(element[i+j] == keyByte[j]){
-                    trues += 1;
-                    if(trues == keyByte.length){
-                        return j+i + 1;
-                    }
-                }else{
-                    trues = 0;
-                    break;
-                }
-            }
-        }
-
-        return 0;
-    }
-
-
-    private String getKey(String element){
-
-        if(element.contains(" { ")){
-            return element.substring(0, element.indexOf(" { "));
-        }else if(element.contains(" ** ")){
-            return element.substring(0, element.indexOf(" ** "));
-        }else{
-            return element;
-        }
-
-    }
-
-
-
-    private String getHashInfo(byte[] element){
-        Formatter fmt = new Formatter();
-
-        try {
-            for(byte info : MessageDigest.getInstance("SHA-1").digest(element)){
-                fmt.format("%02x", info);
-            }
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return fmt.toString();
-    }
-
-
-
 
 }
