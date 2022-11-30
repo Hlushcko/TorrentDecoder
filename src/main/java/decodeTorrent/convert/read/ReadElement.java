@@ -78,7 +78,7 @@ public class ReadElement extends Read{
                 out++;
             }
 
-            if(out >= 5){
+            if(out >= 10 || torrentMass.get(i).contains("name **")){
                 finishPosition = i - out;
                 return elements;
             }
