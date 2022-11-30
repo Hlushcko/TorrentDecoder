@@ -3,9 +3,10 @@ package decodeTorrent.convert;
 import decodeTorrent.convert.data.Torrent;
 import decodeTorrent.convert.data.TorrentElements;
 import decodeTorrent.convert.read.ReadElement;
-import sun.nio.cs.US_ASCII;
 
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class ReadStringTorrent {
@@ -222,8 +223,8 @@ public class ReadStringTorrent {
         }
 
         int lol23 = test.length + pieces.length - finish.length - 1;
-        for(int i = 0; i < test.length; i++){
-            hash[lol23 + i] = finish[i];
+        for(int i = 0; i < finish.length - 1; i++){
+            hash[lol23 + i + 1] = finish[i];
         }
 
         String tes = new String(hash, StandardCharsets.US_ASCII);
@@ -247,6 +248,7 @@ public class ReadStringTorrent {
 //        }
 
 
+        String myResu = getHashInfo(hash);
         byte[] cutCutCut = cutToInfo.getBytes(StandardCharsets.UTF_8);
 
         return new String(cutCutCut, StandardCharsets.UTF_8);
@@ -323,5 +325,24 @@ public class ReadStringTorrent {
         }
 
     }
+
+
+
+    private String getHashInfo(byte[] element){
+        Formatter fmt = new Formatter();
+
+        try {
+            for(byte info : MessageDigest.getInstance("SHA-1").digest(element)){
+                fmt.format("%02x", info);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return fmt.toString();
+    }
+
+
+
 
 }
