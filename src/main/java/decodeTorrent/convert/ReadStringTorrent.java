@@ -2,12 +2,10 @@ package decodeTorrent.convert;
 
 import decodeTorrent.convert.data.Torrent;
 import decodeTorrent.convert.data.TorrentElements;
-import decodeTorrent.convert.read.HashReader;
+import decodeTorrent.decode.HashReader;
 import decodeTorrent.convert.read.ReadElement;
 
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class ReadStringTorrent {

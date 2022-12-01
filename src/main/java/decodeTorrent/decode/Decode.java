@@ -27,6 +27,7 @@ public class Decode extends DecodeStandard {
     public Torrent decode(){
         constructorInformation();
 
+        torrentElement.setInfoHash(ReadHash.readHashInfo(torrent, decodeTorrentString.toString()));
         torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
         torrentElement.setTorrentByte(torrent);
 
