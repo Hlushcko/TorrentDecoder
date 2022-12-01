@@ -29,8 +29,6 @@ public class Decode extends DecodeStandard {
 
         torrentElement.setInfoHash(new ReadHash().readHashInfo(torrent, decodeTorrentString.toString()));
         torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
-        torrentElement.setTorrentByte(torrent);
-
 
         return torrentElement;
     }
@@ -114,7 +112,6 @@ public class Decode extends DecodeStandard {
 
         if(nextRead > 500 ) { // usually pieces > 500.
             element = element.replace("\n", ":split:");
-            torrentElement.setPiecesByte(elements);
         }
 
         if(solo && readCycle == 2) {
