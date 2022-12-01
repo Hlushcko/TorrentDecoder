@@ -27,7 +27,7 @@ public class Decode extends DecodeStandard {
     public Torrent decode(){
         constructorInformation();
 
-        torrentElement.setInfoHash(ReadHash.readHashInfo(torrent, decodeTorrentString.toString()));
+        torrentElement.setInfoHash(new ReadHash().readHashInfo(torrent, decodeTorrentString.toString()));
         torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
         torrentElement.setTorrentByte(torrent);
 
@@ -140,7 +140,7 @@ public class Decode extends DecodeStandard {
         }
 
         if(openDictionary[correctDictionary] == 0){
-            decodeTorrentString.append(" :]: \n");
+            decodeTorrentString.append("\n :]: \n");
             correctDictionary--;
         }
 

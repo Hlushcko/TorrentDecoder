@@ -12,6 +12,7 @@ public class Main {
         Tdroid d = new Tdroid();
 
         try {
+            System.out.println("lol");
              //String a = d.decodeTorrent(new File("C:\\Users\\Oksana\\Downloads\\kberpank-t-scho-bzhat-po-krayu-sezon-1.torrent")).getTorrentStingFormat();
             Torrent a = d.decodeTorrent(new File("C:\\Users\\Volodymyr\\Downloads\\Amok Runner [FitGirl Repack].torrent"));
             Torrent b = d.decodeTorrent(new File("C:\\Users\\Volodymyr\\Downloads\\friends-s01_archive.torrent"));

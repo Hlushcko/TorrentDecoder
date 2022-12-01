@@ -36,7 +36,6 @@ public class ReadStringTorrent {
 
     public Torrent stringToTorrent(){
         readElements();
-        info.setInfoHash(HashReader.readHashInfo(torrentMass, info.getTorrentByte(), info.getPiecesByte()));
         return info;
     }
 

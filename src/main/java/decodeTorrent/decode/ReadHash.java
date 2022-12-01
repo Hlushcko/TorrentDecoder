@@ -1,7 +1,5 @@
 package decodeTorrent.decode;
 
-import javafx.collections.ArrayChangeListener;
-
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -11,20 +9,30 @@ import java.util.Formatter;
 
 public class ReadHash {
 
-    private static byte[] torrentByte;
-    private static ArrayList<String> torrentList = new ArrayList<>();
+    private byte[] torrentByte;
+    private ArrayList<String> torrentStringList = new ArrayList<>();
 
 
-    public static String readHashInfo(byte[] torrent, String torrentString){
+    public String readHashInfo(byte[] torrent, String torrentString){
         torrentByte = torrent;
-        torrentList.addAll(Arrays.asList(torrentString.split("\n")));
+        deleteEmptyElement(torrentString.split("\n"));
 
         return getHashInfo(cutInfo());
     }
 
 
-    private static byte[] cutInfo(){
-        int startPosition = getPositionKey("infod");
+    private void deleteEmptyElement(String[] torrentList){
+        for(String element : torrentList){
+
+            if(!element.isEmpty() && !element.equals("} ") && !element.equals(" }") && !element.equals(" } ")){
+                torrentStringList.add(element);
+            }
+
+        }
+    }
+
+    private byte[] cutInfo(){
+        int startPosition = getPositionKey("infod") + 4; // set cursor info|d - here, because cursor has this position |infod.
         int endPosition = searchFinishKey();
 
         byte[] cutTorrent = new byte[endPosition - startPosition];
@@ -44,28 +52,29 @@ public class ReadHash {
     }
 
 
-    private static int searchFinishKey(){
+    private int searchFinishKey(){
         int openDictionary = 0;
         String finishKey = null;
 
-        for(int i = 0; i < torrentList.size(); i++){
+        for(int i = 0; i < torrentStringList.size(); i++){
 
-            if(torrentList.get(i).equals("info")){
-                for(int j = i + 1; j < torrentList.size(); j++){
+            if(torrentStringList.get(i).equals("info")){
+                for(int j = i + 1; j < torrentStringList.size(); j++){
 
-                    if(torrentList.get(j).contains(":[:")){
+                    if(torrentStringList.get(j).contains(":[:")){
                         openDictionary++;
-                    }else if(torrentList.get(j).contains(":]:")){
+                    }else if(torrentStringList.get(j).contains(":]:")){
                         openDictionary--;
                     }
 
                     if(openDictionary == 0){
-                        if(torrentList.size() >= j + 1){
-                            finishKey = null;
+                        if(torrentStringList.size() - 1 >= j + 1) {
+                            finishKey = torrentStringList.get(j + 1);
                         }else{
-                            finishKey = torrentList.get(j+1);
+                            finishKey = null;
                         }
-                        i = j;
+
+                        i = torrentStringList.size();
                         break;
                     }
 
@@ -75,14 +84,16 @@ public class ReadHash {
         }
 
         if(finishKey != null){
-            return getPositionKey(finishKey);
+            return getPositionKey(getKey(finishKey)) - 2;
         }else{
             return torrentByte.length - 1;
         }
     }
 
 
-    protected static int getPositionKey(String key){
+
+
+    private int getPositionKey(String key){
         byte[] keyByte = key.getBytes(StandardCharsets.US_ASCII);
         int trues = 0;
 
@@ -104,8 +115,19 @@ public class ReadHash {
         return 0;
     }
 
+    private String getKey(String element){
 
-    protected static String getHashInfo(byte[] element){
+        if(element.contains(" { ")){
+            return element.substring(0, element.indexOf(" { "));
+        }else if(element.contains(" ** ")){
+            return element.substring(0, element.indexOf(" ** "));
+        }else{
+            return element;
+        }
+
+    }
+
+    private String getHashInfo(byte[] element){
         Formatter fmt = new Formatter();
 
         try {
