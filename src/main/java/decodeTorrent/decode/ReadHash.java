@@ -1,11 +1,13 @@
 package decodeTorrent.decode;
 
+import decodeTorrent.convert.read.ReadElement;
+
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Formatter;
+
 
 public class ReadHash {
 
@@ -47,12 +49,11 @@ public class ReadHash {
             }
         }
 
-        String a = Arrays.toString(cutTorrent).replace(",", "");
         return cutTorrent;
     }
 
 
-    private int searchFinishKey(){
+    private int searchFinishKey(){ //BAD CODE
         int openDictionary = 0;
         String finishKey = null;
 
@@ -84,13 +85,11 @@ public class ReadHash {
         }
 
         if(finishKey != null){
-            return getPositionKey(getKey(finishKey)) - 2;
+            return getPositionKey(ReadElement.readKey(finishKey)) - 2;
         }else{
             return torrentByte.length - 1;
         }
     }
-
-
 
 
     private int getPositionKey(String key){
@@ -115,17 +114,6 @@ public class ReadHash {
         return 0;
     }
 
-    private String getKey(String element){
-
-        if(element.contains(" { ")){
-            return element.substring(0, element.indexOf(" { "));
-        }else if(element.contains(" ** ")){
-            return element.substring(0, element.indexOf(" ** "));
-        }else{
-            return element;
-        }
-
-    }
 
     private String getHashInfo(byte[] element){
         Formatter fmt = new Formatter();
@@ -136,6 +124,10 @@ public class ReadHash {
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
+        }
+
+        if(fmt.toString().isEmpty()){
+            throw new Error("Read a hash not possible, torrent file broken");
         }
 
         return fmt.toString();

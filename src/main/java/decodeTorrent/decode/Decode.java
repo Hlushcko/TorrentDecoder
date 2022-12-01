@@ -25,12 +25,16 @@ public class Decode extends DecodeStandard {
 
 
     public Torrent decode(){
-        constructorInformation();
+        if(torrent == null){
+            throw new Error("torrent file is empty");
+        }else {
+            constructorInformation();
 
-        torrentElement.setInfoHash(new ReadHash().readHashInfo(torrent, decodeTorrentString.toString()));
-        torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
+            torrentElement.setInfoHash(new ReadHash().readHashInfo(torrent, decodeTorrentString.toString()));
+            torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
 
-        return torrentElement;
+            return torrentElement;
+        }
     }
 
 

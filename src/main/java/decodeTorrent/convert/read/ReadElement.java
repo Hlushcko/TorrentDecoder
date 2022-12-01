@@ -54,7 +54,7 @@ public class ReadElement extends Read{
         return element.replace(":split:", "\n").substring(element.indexOf("**") + 3);
     }
 
-    public static List<TorrentElements> readFileElements(List<String> torrentMass, int index){
+    public static List<TorrentElements> readFileElements(List<String> torrentMass, int index){ //BAD CODE
         List<TorrentElements> elements = new ArrayList<>();
 
         long length = 0;
@@ -62,8 +62,10 @@ public class ReadElement extends Read{
 
         byte out = 0;
         for(int i = index; i < torrentMass.size() - 1; i++){
+
             if(torrentMass.get(i).contains("length")){
                 length = readInt(torrentMass.get(i).replace("$", ""));
+
             }else if(torrentMass.get(i).contains("path")){
                 String read = torrentMass.get(i);
                 path = read.substring(read.indexOf("{") + 2, read.indexOf("$ }"));
@@ -85,6 +87,18 @@ public class ReadElement extends Read{
         }
 
         return null;
+    }
+
+    public static String readKey(String element){
+
+        if(element.contains(" { ")){
+            return element.substring(0, element.indexOf(" { "));
+        }else if(element.contains(" ** ")){
+            return element.substring(0, element.indexOf(" ** "));
+        }else{
+            return element;
+        }
+
     }
 
 }

@@ -10,9 +10,11 @@ import java.nio.file.Paths;
 
 public abstract class ReadFiles {
 
+
     protected static byte[] getFile(@NotNull File file) throws IOException {
         return Files.readAllBytes(Paths.get(file.getAbsolutePath()));
     }
+
 
     protected static byte[] getFile(@NotNull InputStream stream) throws IOException {
         return IOUtils.readAllBytes(stream);

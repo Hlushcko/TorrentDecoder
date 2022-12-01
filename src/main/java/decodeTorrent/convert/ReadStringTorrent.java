@@ -37,12 +37,11 @@ public class ReadStringTorrent {
     }
 
 
-
     private void readStringTorrent(){
 
         for(int i = 0; i < torrentMass.size(); i++){
 
-            switch(getKey(torrentMass.get(i))){
+            switch(ReadElement.readKey(torrentMass.get(i))){
                 case "announce": info.setAnnounce(ReadElement.getString(torrentMass.get(i), "announce"));
                     break;
                 case "announce-list": info.setAnnounceLit(ReadElement.getList(torrentMass.get(i), "announce-list"));
@@ -72,18 +71,6 @@ public class ReadStringTorrent {
                     break;
             }
 
-        }
-
-    }
-
-    private String getKey(String element){
-
-        if(element.contains(" { ")){
-            return element.substring(0, element.indexOf(" { "));
-        }else if(element.contains(" ** ")){
-            return element.substring(0, element.indexOf(" ** "));
-        }else{
-            return element;
         }
 
     }
