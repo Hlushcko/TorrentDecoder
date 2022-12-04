@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 
 
 @RunWith(JUnit4.class)
-public class DownloadTorrentTests {
+public class TestReadTorrentFile {
 
 
     Torrent torrent;
@@ -25,7 +25,6 @@ public class DownloadTorrentTests {
             e.printStackTrace();
         }
     }
-
 
     @Test
     public void testAnnounce(){
