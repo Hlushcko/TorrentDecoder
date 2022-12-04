@@ -1,4 +1,4 @@
-package Decode.decodeTorrent.convert.data;
+package TorrentDecoder.Decode.decodeTorrent.convert.data;
 
 public class TorrentElements {
     private long length;

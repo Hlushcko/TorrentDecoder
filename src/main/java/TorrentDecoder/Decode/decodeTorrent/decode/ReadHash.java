@@ -1,6 +1,6 @@
-package Decode.decodeTorrent.decode;
+package TorrentDecoder.Decode.decodeTorrent.decode;
 
-import Decode.decodeTorrent.convert.read.ReadElement;
+import TorrentDecoder.Decode.decodeTorrent.convert.read.ReadElement;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

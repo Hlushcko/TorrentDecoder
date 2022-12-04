@@ -1,4 +1,4 @@
-package Decode;
+package TorrentDecoder.Decode;
 
 import com.sun.istack.internal.NotNull;
 import sun.misc.IOUtils;

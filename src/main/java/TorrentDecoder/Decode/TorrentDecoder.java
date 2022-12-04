@@ -1,8 +1,8 @@
-package Decode;
+package TorrentDecoder.Decode;
 
-import Decode.decodeTorrent.convert.ReadStringTorrent;
-import Decode.decodeTorrent.convert.data.Torrent;
-import Decode.decodeTorrent.decode.Decode;
+import TorrentDecoder.Decode.decodeTorrent.convert.ReadStringTorrent;
+import TorrentDecoder.Decode.decodeTorrent.convert.data.Torrent;
+import TorrentDecoder.Decode.decodeTorrent.decode.Decode;
 
 import java.io.File;
 import java.io.InputStream;

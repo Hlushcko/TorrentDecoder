@@ -1,7 +1,7 @@
-package Decode.decodeTorrent.convert;
+package TorrentDecoder.Decode.decodeTorrent.convert;
 
-import Decode.decodeTorrent.convert.data.Torrent;
-import Decode.decodeTorrent.convert.read.ReadElement;
+import TorrentDecoder.Decode.decodeTorrent.convert.data.Torrent;
+import TorrentDecoder.Decode.decodeTorrent.convert.read.ReadElement;
 
 import java.util.*;
 

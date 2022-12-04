@@ -1,7 +1,7 @@
 package DecodeTorrentTests;
 
-import Decode.TorrentDecoder;
-import Decode.decodeTorrent.convert.data.Torrent;
+import TorrentDecoder.Decode.TorrentDecoder;
+import TorrentDecoder.Decode.decodeTorrent.convert.data.Torrent;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

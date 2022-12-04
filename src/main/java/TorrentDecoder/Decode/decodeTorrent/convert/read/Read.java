@@ -1,4 +1,4 @@
-package Decode.decodeTorrent.convert.read;
+package TorrentDecoder.Decode.decodeTorrent.convert.read;
 
 import java.util.ArrayList;
 import java.util.List;

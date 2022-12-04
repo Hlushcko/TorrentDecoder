@@ -1,4 +1,4 @@
-package Decode.decodeTorrent.convert.data;
+package TorrentDecoder.Decode.decodeTorrent.convert.data;
 
 import java.util.Date;
 import java.util.List;
