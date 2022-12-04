@@ -20,7 +20,6 @@ public class TestReadPathFile {
     private final static String PATH_TORRENT = "src/main/tests/TestTorrentResources/test_torrent_file.torrent";
 
 
-
     @Test
     public void testReadInputStream(){
         FileInputStream fil;
