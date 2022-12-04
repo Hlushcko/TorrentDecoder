@@ -22,17 +22,4 @@ public abstract class ReadFiles {
         return IOUtils.readAllBytes(stream);
     }
 
-
-    protected static byte[] getFileTested(@NotNull InputStream stream) throws IOException {
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        int nRead;
-        byte[] data = new byte[stream.available()];
-
-        while ((nRead = stream.read(data, 0, data.length)) != -1) {
-            buffer.write(data, 0, nRead);
-        }
-
-        return buffer.toByteArray();
-    }
-
 }

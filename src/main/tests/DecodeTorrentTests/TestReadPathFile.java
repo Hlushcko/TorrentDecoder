@@ -8,13 +8,18 @@ import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
+
 
 @RunWith(JUnit4.class)
 public class TestReadPathFile {
 
     private final static String PATH_TORRENT = "src/main/tests/TestTorrentResources/test_torrent_file.torrent";
+
+
 
     @Test
     public void testReadInputStream(){
@@ -24,21 +29,6 @@ public class TestReadPathFile {
         try {
             fil = new FileInputStream(new File(PATH_TORRENT));
             torrentInputStream = new TorrentDecoder().decodeTorrent(fil);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        assertEquals("test name", torrentInputStream.getComment());
-    }
-
-    @Test
-    public void testReadInputStreamTest(){
-        FileInputStream fil;
-        Torrent torrentInputStream = new Torrent();
-
-        try {
-            fil = new FileInputStream(new File(PATH_TORRENT));
-            torrentInputStream =  new TorrentDecoder().decodeTorrentTest(fil);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,7 +56,7 @@ public class TestReadPathFile {
         Torrent torrent = new Torrent();
 
         try {
-            torrent =  new TorrentDecoder().decodeTorrent(new File(PATH_TORRENT));
+            torrent =  new TorrentDecoder().decodeTorrent(Files.readAllBytes(Paths.get(PATH_TORRENT)));
         } catch (Exception e) {
             e.printStackTrace();
         }

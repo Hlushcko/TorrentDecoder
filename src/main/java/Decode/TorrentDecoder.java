@@ -24,9 +24,4 @@ public class TorrentDecoder extends ReadFiles{
         return new ReadStringTorrent(new Decode(bytes).decode()).stringToTorrent();
     }
 
-
-    public Torrent decodeTorrentTest(InputStream stream) throws Exception{
-        return new ReadStringTorrent(new Decode(getFileTested(stream)).decode()).stringToTorrent();
-    }
-
 }

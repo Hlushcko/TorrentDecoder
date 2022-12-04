@@ -15,16 +15,19 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnit4.class)
 public class TestReadTorrentFile {
 
+    private final static String PATH_TORRENT = "src/main/tests/TestTorrentResources/test_torrent_file.torrent";
+
 
     Torrent torrent;
 
     {
         try {
-            torrent = new TorrentDecoder().decodeTorrent(new File("src/main/tests/TestTorrentResources/test_torrent_file.torrent"));
+            torrent = new TorrentDecoder().decodeTorrent(new File(PATH_TORRENT));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     @Test
     public void testAnnounce(){
@@ -66,7 +69,6 @@ public class TestReadTorrentFile {
         assertEquals(160, torrent.getPieces().length());
     }
 
-
     @Test
     public void testPrivate(){
         assertEquals(0, torrent.getPrivates());
@@ -93,21 +95,5 @@ public class TestReadTorrentFile {
         assertEquals(d, torrent.getCreationDate());
     }
 
-
-
-    //announce: http://testannounceurl.com
-    //name: your name
-    //pieceLength: 16752216
-    //pieces: (size = 160)
-    //fileList: (size = 5)
-    //coment: test name
-    //createdBy: Hlushko
-    //encoding: UTF-8
-    //date = 2000/11/30
-    //announce-list: (size = 3)
-    //hash: 2b478cc39fe6ff818ba7af614d178389b44bc5da
-    //private: 0
-    //publisher Hlushko
-    //publisher-url http://github.com/Hslushcko
 
 }
