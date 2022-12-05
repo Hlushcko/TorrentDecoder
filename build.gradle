@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.hlushcko' as Publication
+            artifactId = 'TorrentDecoder' as Publication
+            version = '0.2' as Publication
+
+            from components.java
+        }
+    }
+}
