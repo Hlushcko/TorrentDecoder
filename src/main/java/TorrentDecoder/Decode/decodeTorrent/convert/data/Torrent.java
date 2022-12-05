@@ -7,7 +7,7 @@ public class Torrent {
 
     private String torrentStingFormat;
     private String announce;
-    private List<String> announceLit;
+    private List<String> announceList;
     private Date creationDate;
     private String comment;
     private String createdBy;
@@ -66,12 +66,12 @@ public class Torrent {
         torrentStingFormat = _torrentStingFormat;
     }
 
-    public List<String> getAnnounceLit() {
-        return announceLit;
+    public List<String> getAnnounceList() {
+        return announceList;
     }
 
-    public void setAnnounceLit(List<String> announceLit) {
-        this.announceLit = announceLit;
+    public void setAnnounceList(List<String> announceLit) {
+        this.announceList = announceLit;
     }
 
     public Long getPieceLength() {

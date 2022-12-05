@@ -42,7 +42,7 @@ public class ReadStringTorrent {
             switch(ReadElement.readKey(torrentMass.get(i))){
                 case "announce": info.setAnnounce(ReadElement.getString(torrentMass.get(i), "announce"));
                     break;
-                case "announce-list": info.setAnnounceLit(ReadElement.getList(torrentMass.get(i), "announce-list"));
+                case "announce-list": info.setAnnounceList(ReadElement.getList(torrentMass.get(i), "announce-list"));
                     break;
                 case "encoding": info.setEncoding(ReadElement.getString(torrentMass.get(i), "encoding"));
                     break;
