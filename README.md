@@ -1,22 +1,6 @@
 ## TorrentDecoder is a library that will allow you to decode a torrent file.
 
-You will receive the following information:
-* announce.
-* announce list.
-* creation date.
-* comment.
-* created by.
-* encoding.
-* files element.
-* pieces length.
-* torrent hash.
-* name.
-* pieces.
-* private.
-* publisher.
-* publisher url.
-
-
+----
 
 ## Download steps (for intellij idea or android studio):
 
@@ -45,3 +29,63 @@ You will receive the following information:
 ----
 
 ## How to work with TorrentDecoder
+
+#### All you need to decode a torrent file is: 
+* 1. Torrent class. 
+* 2. TorrentDecoder class 
+* 3. Link to a torrent file or an already read torrent file in inputStream or byte[]
+
+#### The decodeTorrent method from the TorrentDecoder class can take: InputStream, byte[] or File and returns to you the already decoded torrent file. It may contain:
+
+* announce.
+* announce list.
+* creation date.
+* comment.
+* created by.
+* encoding.
+* files element.
+* pieces length.
+* torrent hash.
+* name.
+* pieces.
+* private.
+* publisher.
+* publisher url.
+
+### You should understand that not all torrent files may contain coding, comment, or any other elements. You will usually get the following items:
+
+* announce.
+* announce list.
+* creation date.
+* created by.
+* files element.
+* pieces length.
+* torrent hash.
+* name.
+* pieces.
+
+
+#### You should also place the decoding process in Try catch. It is also recommended to perform this task in another stream, since decrypting large files (5 megabytes) can take a few seconds and block the user interface.
+
+
+```
+try{
+  Torrent torrent = new TorrentDecoder().decodeTorrent( "your File, InputStream or byte[]"  );
+}catch(Exception e){
+  e.printStackTrace();
+}
+```
+
+### Example of torrent decoding using the File class
+
+
+```
+private final string PATH_TORRENT_FILE = "your path";
+
+try{
+  Torrent torrent = new TorrentDecoder().decodeTorrent(new File(PATH_TORRENT_FILE));
+}catch(Exception e){
+  e.printStackTrace();
+}
+```
+
