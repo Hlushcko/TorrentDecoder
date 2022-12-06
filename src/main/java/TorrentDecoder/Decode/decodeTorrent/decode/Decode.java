@@ -15,6 +15,10 @@ public class Decode extends DecodeStandard {
     private int[] openDictionary = new int[10];
     private int correctDictionary = -1;
 
+    private int positionInfo = -1;
+    private int startInfo;
+    private int finishInfo;
+
     private boolean solo = true;
     private int readCycle = 0;
 
@@ -29,8 +33,6 @@ public class Decode extends DecodeStandard {
             throw new Error("torrent file is empty");
         }else {
             constructorInformation();
-
-            torrentElement.setInfoHash(new ReadHash().readHashInfo(torrent, decodeTorrentString.toString()));
             torrentElement.setTorrentStingFormat(decodeTorrentString.toString());
 
             return torrentElement;
@@ -51,7 +53,9 @@ public class Decode extends DecodeStandard {
     private void checkByte(){
         if(checkInt()){
             readIntTo();
-        }switch(torrent[position]){
+        }
+
+        switch(torrent[position]){
             case 'd': createDictionary();
                 break;
             case 'l': readList();
@@ -116,6 +120,9 @@ public class Decode extends DecodeStandard {
 
         if(nextRead > 500 ) { // usually pieces > 500.
             element = element.replace("\n", ":split:");
+        }else if(element.equals("info")){
+            positionInfo = correctDictionary + 1;
+            startInfo = position;
         }
 
         if(solo && readCycle == 2) {
@@ -143,6 +150,12 @@ public class Decode extends DecodeStandard {
         if(openDictionary[correctDictionary] == 0){
             decodeTorrentString.append("\n :]: \n");
             correctDictionary--;
+        }
+
+        if(positionInfo != -1 && openDictionary[positionInfo] == 0){
+            finishInfo = position;
+            positionInfo = -1;
+            torrentElement.setInfoHash(new ReadHash().cutPieces(torrent, startInfo, finishInfo + 1));
         }
 
         position++;

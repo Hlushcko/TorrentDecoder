@@ -7,10 +7,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Date;
+
 
 import static org.junit.Assert.assertEquals;
 
