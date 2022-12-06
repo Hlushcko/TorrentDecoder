@@ -1,13 +1,10 @@
 package TorrentDecoder.Decode.decodeTorrent.decode;
 
 import TorrentDecoder.Decode.decodeTorrent.convert.data.Torrent;
-
 import java.nio.charset.StandardCharsets;
 
 
 public class Decode extends DecodeStandard {
-
-    private static final int MAX_LENGTH = 100;
 
     private final StringBuilder decodeTorrentString = new StringBuilder();
     private final Torrent torrentElement = new Torrent();
@@ -75,9 +72,7 @@ public class Decode extends DecodeStandard {
 
     private void readInt() {
        StringBuilder number = new StringBuilder();
-        openDictionary[correctDictionary]++;
-        position++; //skip i
-        readCycle = 0;
+       plusNumbers();
 
         while (torrent[position] != 'e') {
             number.append(new String(new byte[]{torrent[position]}, StandardCharsets.US_ASCII));
@@ -91,10 +86,8 @@ public class Decode extends DecodeStandard {
 
     private void readList(){
         decodeTorrentString.append(" { ");
-        openDictionary[correctDictionary]++;
-        position++; //skip l
+        plusNumbers();
         solo = false;
-        readCycle = 0;
 
         while(torrent[position] != 'e'){
             checkByte();
@@ -102,8 +95,7 @@ public class Decode extends DecodeStandard {
             readCycle = 0;
         }
 
-        //position++;
-        //decodeTorrentString.append(" } ");
+
     }
 
 
@@ -162,11 +154,15 @@ public class Decode extends DecodeStandard {
     }
 
     private void createDictionary(){
-        readCycle = 0;
         correctDictionary++;
-        openDictionary[correctDictionary]++;
         decodeTorrentString.append("\n dictionary :[: \n");
-        position++;
+        plusNumbers();
+    }
+
+    private void plusNumbers(){
+        openDictionary[correctDictionary]++;
+        position++; //skip l or i
+        readCycle = 0;
     }
 
 }

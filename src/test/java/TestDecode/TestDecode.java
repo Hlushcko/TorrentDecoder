@@ -16,9 +16,8 @@ import static org.junit.Assert.assertEquals;
 public class TestDecode {
 
     private final static String PATH_TORRENT = "src/test/java/TestTorrentFiles/test_torrent.torrent";
-
-
     Torrent torrent;
+
 
     {
         try {
