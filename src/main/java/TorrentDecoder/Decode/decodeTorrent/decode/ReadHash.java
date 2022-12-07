@@ -1,11 +1,7 @@
 package TorrentDecoder.Decode.decodeTorrent.decode;
 
-import TorrentDecoder.Decode.decodeTorrent.convert.read.ReadElement;
-
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Formatter;
 
 public class ReadHash {

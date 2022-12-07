@@ -90,8 +90,7 @@ public class TestDecode {
 
     @Test
     public void testDate(){
-        Date d = new Date(975545902 * 1000L);
-        assertEquals(d, torrent.getCreationDate());
+        assertEquals(new Date(975545902 * 1000L), torrent.getCreationDate());
     }
 
 }
