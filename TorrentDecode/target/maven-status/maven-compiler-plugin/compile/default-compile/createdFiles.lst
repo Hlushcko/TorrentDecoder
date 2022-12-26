@@ -1,0 +1,10 @@
+Decode/decodeTorrent/convert/read/Read.class
+Decode/decodeTorrent/decode/Decode.class
+Decode/TorrentDecoder.class
+Decode/ReadFiles.class
+Decode/decodeTorrent/convert/ReadStringTorrent.class
+Decode/decodeTorrent/decode/ReadHash.class
+Decode/decodeTorrent/convert/data/TorrentElements.class
+Decode/decodeTorrent/decode/DecodeStandard.class
+Decode/decodeTorrent/convert/data/Torrent.class
+Decode/decodeTorrent/convert/read/ReadElement.class

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="30efe8c8-6466-432a-a8a7-11f0c5b84205" name="Changes" comment="update everything... everything... короче багато оновлень, прийшлось переписати щось, щось дописати і видалити. (#0004)">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/ReadFiles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/TorrentDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/convert/ReadStringTorrent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/convert/data/Torrent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/convert/data/TorrentElements.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/convert/read/Read.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/convert/read/ReadElement.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/decode/Decode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/decode/DecodeStandard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/main/java/Decode/decodeTorrent/decode/ReadHash.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/test/java/TestDecode/TestDecode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/test/java/TestDecode/TestReadTorrentFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/src/test/java/TestTorrentFiles/test_torrent.torrent" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/TorrentDecoder-0.2.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/ReadFiles.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/TorrentDecoder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/convert/ReadStringTorrent.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/convert/data/Torrent.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/convert/data/TorrentElements.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/convert/read/Read.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/convert/read/ReadElement.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/decode/Decode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/decode/DecodeStandard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/classes/Decode/decodeTorrent/decode/ReadHash.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/surefire-reports/TEST-TestDecode.TestDecode.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/surefire-reports/TEST-TestDecode.TestReadTorrentFile.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/surefire-reports/TestDecode.TestDecode.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/surefire-reports/TestDecode.TestReadTorrentFile.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/test-classes/TestDecode/TestDecode.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDecode/target/test-classes/TestDecode/TestReadTorrentFile.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TorrentDownload/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/TorrentDecoder/Download/DownloadTorrent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TorrentDecoder.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/ReadFiles.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/TorrentDecoder.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/convert/ReadStringTorrent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/convert/data/Torrent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/convert/data/TorrentElements.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/convert/read/Read.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/convert/read/ReadElement.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/decode/Decode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/decode/DecodeStandard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Decode/decodeTorrent/decode/ReadHash.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/TorrentDecoder/Download/DownloadTorrent.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestDecode/TestDecode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestDecode/TestReadTorrentFile.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/TestTorrentFiles/test_torrent.torrent" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2JHb8Ho9X1EZbAjQHntxUOff0Wt" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/volodymyr/idea project/TorrentDecoder&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/TorrentDEcoder" />
+      <recent name="$PROJECT_DIR$/TorrentDEcoder/src" />
+      <recent name="$PROJECT_DIR$/TorrentDecoder" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TorrentDecode/src" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean install" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.TestDecode (1)">
+    <configuration name="TestDecode (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TorrentDecoder" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="TestDecode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="TestDecode" />
+      <option name="MAIN_CLASS_NAME" value="TestDecode.TestDecode" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestDecode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="copy" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="TestDecode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="TestDecode" />
+      <option name="MAIN_CLASS_NAME" value="TestDecode.TestDecode" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestDecode.testPieceLength" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TorrentDecoder" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="TestDecode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="TestDecode" />
+      <option name="MAIN_CLASS_NAME" value="TestDecode.TestDecode" />
+      <option name="METHOD_NAME" value="testPieceLength" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestReadTorrentFile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TorrentDecoder" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="TestDecode.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="TestDecode" />
+      <option name="MAIN_CLASS_NAME" value="TestDecode.TestReadTorrentFile" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestDecode (1)" />
+        <item itemvalue="JUnit.TestReadTorrentFile" />
+        <item itemvalue="JUnit.TestDecode.testPieceLength" />
+        <item itemvalue="JUnit.TestDecode" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="30efe8c8-6466-432a-a8a7-11f0c5b84205" name="Changes" comment="" />
+      <created>1671737801229</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1671737801229</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="master" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="update everything... everything... короче багато оновлень, прийшлось переписати щось, щось дописати і видалити. (#0004)" />
+    <option name="LAST_COMMIT_MESSAGE" value="update everything... everything... короче багато оновлень, прийшлось переписати щось, щось дописати і видалити. (#0004)" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="JUnit">
+        <watch expression="((TestDecode.TestDecode)this).torrent.publisherUrl" custom="TestDecode.TestDecode" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="TorrentDownload" />
         <module name="TorrentDecoder" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="TorrentDecode" target="1.8" />
+      <module name="TorrentDecoder (1)" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
